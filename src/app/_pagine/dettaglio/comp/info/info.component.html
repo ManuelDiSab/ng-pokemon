@@ -1,0 +1,72 @@
+<section class="right">
+
+    <div class="info">
+        <h3>Info principali</h3>
+        <div class="info_item">
+            <span class="label">Introdotto:</span>
+            <span class="value">{{data.species.generazione}}</span>
+        </div>
+        <div class="info_item">
+            @if (data.details.tipo2) {
+            <span class="label">Tipi: </span>
+            <div class="cont_tipo">
+                <span [ngStyle]="{'color':colori[data.details.tipo1]}" class="tipo">{{data.details.tipo1 |
+                    uppercase}}</span>
+                <span [ngStyle]="{'color':colori[data.details.tipo2]}" class="tipo">{{data.details.tipo2 |
+                    uppercase}}</span>
+            </div>
+            }@else {
+            <span class="label">Tipo: </span>
+            <div class="cont_tipo"><span [ngStyle]="{'color':colori[data.details.tipo1]}"
+                    class="tipo">{{data.details.tipo1
+                    | uppercase}}</span></div>
+            }
+        </div>
+        <div class="info_item">
+            <span class="label">N° nazionale:</span>
+            <span class="value">{{data.details.id.toString().padStart(4,'0')}}</span>
+        </div>
+        <div class="info_item">
+            <span class="label">Specie:</span>
+            <span class="value">{{data.species.genera}}</span>
+        </div>
+        <div class="info_item">
+            <span class="label">Prima abilità:</span>
+            <span class="value" placement="top" [ngbTooltip]="data.details.abilita_desc"
+                tooltipPosition="top">{{data.details.abilita}}</span>
+        </div>
+        <div class="info_item">
+            <span class="label">Abilità speciale:</span>
+            <span class="value" placement="top" [ngbTooltip]="data.details.abilita_nascosta_desc"
+                tooltipPosition="top">{{data.details.abilita2}}</span>
+        </div>
+    </div>
+
+    <div class="info">
+        <h3>Dettagli</h3>
+        <div class="info_item">
+            <span class="label">Altezza:</span>
+            <span class="value">{{data.details.altezza}} m</span>
+        </div>
+        <div class="info_item">
+            <span class="label">Peso:</span>
+            <span class="value">{{data.details.peso}} kg</span>
+        </div>
+        <div class="info_item">
+            <span class="label">Exp. base:</span>
+            <span class="value">{{data.species.fel_base}}</span>
+        </div>
+        <div class="info_item">
+            <span class="label">Felicità base:</span>
+            <span class="value">{{data.species.base_exp}}</span>
+        </div>
+        <div class="info_item">
+            <span class="label">Tasso di cattura:</span>
+            <span class="value">{{data.species.tasso_di_cattura}}</span>
+        </div>
+        <div class="info_item">
+            <span class="label">Genere:</span>
+            <span class="value">{{data.species.genere.text}}</span>
+        </div>
+    </div>
+</section>

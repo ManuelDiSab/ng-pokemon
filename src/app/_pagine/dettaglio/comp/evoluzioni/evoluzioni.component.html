@@ -1,0 +1,82 @@
+<section class="evoluzioni">
+  <div class="container_evoluzioni">
+
+    <!-- Controllo se ci sono evoluzioni -->
+    @if (evoluzioni?.length >= 2) {
+    <!-- Radici: di solito è 1 (es. Applin) -->
+    <div class="tree">
+      @for (root of evoluzioni[0]; track root.name) {
+      <ng-container *ngTemplateOutlet="renderNode; context: { $implicit: root, depth: 0 }"></ng-container>
+      }
+    </div>
+
+    <!-- Template ricorsivo: stampa il nodo e i suoi figli a destra -->
+    <ng-template #renderNode let-node let-depth="depth">
+      <div class="node">
+
+        <!-- Card Pokémon -->
+        <div class="pokemon">
+          <img [src]="node.sprite" [alt]="'immagine di ' + node.name" class="sprite" loading="lazy">
+          <a class="link" [routerLink]="['/pokedex', node.name]">
+            {{ node.name | titlecase }}
+          </a>
+          <div class="tipo_container">
+            <span class="tipo" [ngStyle]="{'color': colori[node.tipo1]}">{{ node.tipo1 }}</span>
+            <span class="tipo" *ngIf="node.tipo2" [ngStyle]="{'color': colori[node.tipo2]}">{{ node.tipo2 }}</span>
+          </div>
+        </div>
+
+        <!-- Figli dal prossimo stage (depth + 1) -->
+        @if (getChildrenByDepth(depth, node.name).length > 0) {
+        <div class="children-row">
+
+          @for (child of getChildrenByDepth(depth, node.name); track child.name) {
+
+          <div class="connector-and-child">
+
+            <!-- Connettore con freccia + condizioni dell'evoluzione del FIGLIO -->
+            <div class="stage-connector">
+              <i class="bi bi-arrow-down"></i>
+
+              @if (child.item_sprite || child.held_item_sprite || child.conditions?.length) {
+              <div class="condizioni">
+                @if (child.item_sprite) {
+                <span><img [src]="child.item_sprite" class="item" loading="lazy" alt="strumento evolutivo"></span>
+                }
+                @if (child.held_item_sprite) {
+                <span><img [src]="child.held_item_sprite" class="item" loading="lazy" alt="strumento tenuto"></span>
+                }
+                <p class="condizione_desc">{{ child.conditions }}</p>
+              </div>
+              }
+            </div>
+
+            <!-- Ricorsione: stampa il figlio e i suoi eventuali figli -->
+            <ng-container
+              *ngTemplateOutlet="renderNode; context: { $implicit: child, depth: depth + 1 }"></ng-container>
+          </div>
+
+          }
+        </div>
+        }
+      </div>
+    </ng-template>
+
+    } @else {
+    <!-- Caso di pokemon che non si evolve -->
+    <div class="node">
+      <div class="pokemon">
+        @let evo = evoluzioni[0][0];
+        <img [src]="evo.sprite" [alt]="'Immagine di ' + evo.name" class="sprite" loading="lazy">
+        <small>Non si evolve</small>
+        <a class="link" [routerLink]="['/pokedex', evo.name]">{{ evo.name | titlecase }}</a>
+        <div class="tipo_container">
+          <span class="tipo" [ngStyle]="{'color': colori[evo.tipo1]}">{{ evo.tipo1 }}</span>
+          <span class="tipo" *ngIf="evo.tipo2" [ngStyle]="{'color': colori[evo.tipo2]}">{{ evo.tipo2 }}</span>
+        </div>
+      </div>
+    </div>
+    }
+
+  </div>
+</section>

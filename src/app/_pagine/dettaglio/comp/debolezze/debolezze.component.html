@@ -1,0 +1,75 @@
+<div class="chart">
+    <h5>Debolezze e resistenze</h5>
+    <div class="container_table">
+        <table class="table debolezze_table">
+            <tbody>
+                <tr>
+                    <th>Debolezze 4x</th>
+                    <td>
+                        @for (item of tipoFinale?.doppieDebolezze; track $index) {
+                        <span [style.color]="colori[item]">{{item}}</span>
+                        }@empty {
+                        <span>Nessuna</span>
+                        }
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Debolezze 2x</th>
+                    <td>
+                        @for (item of tipoFinale?.debolezze; track $index) {
+                        <span [style.color]="colori[item]">{{item}}</span>
+                        }@empty {
+                        <span>Nessuna</span>
+                        }
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Normale 1x</th>
+                    <td>
+                        @for (item of tipoFinale?.normale; track $index) {
+                        <span [style.color]="colori[item]">{{item}}</span>
+                        }@empty {
+                        <span>Nessuna</span>
+                        }
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Resistenze ½x</th>
+                    <td>
+                        @for (item of tipoFinale?.resistenze; track $index) {
+                        <span [style.color]="colori[item]">{{item}}</span>
+                        }@empty {
+                        <span>Nessuna</span>
+                        }
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Resistenze ¼x</th>
+                    <td>
+                        @for (item of tipoFinale?.doppieResistenze; track $index) {
+                        <span [style.color]="colori[item]">{{item}}</span>
+                        }@empty {
+                        <span>Nessuna</span>
+                        }
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Immunità 0x</th>
+                    <td>
+                        @for (item of tipoFinale?.immune; track $index) {
+                        <span [style.color]="colori[item]">{{item}}</span>
+                        }@empty {
+                        <span>Nessuna</span>
+                        }
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

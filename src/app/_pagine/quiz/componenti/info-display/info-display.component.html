@@ -1,0 +1,79 @@
+@switch (display) {
+
+<!-- #####   VERSIONE MOBILE   ################################# -->
+@case('mobile'){
+<div class=" mobile">
+    <div class="header">
+        <!-- ####  header della page con vite e tasto reset  ###### -->
+        <span class="counter">Punteggio: {{punteggio}} </span>
+        <span class="serie">Serie: {{serie}} ({{miglior_serie}})</span>
+        <button class="reset" (click)="onClickReset()">Reset</button>
+    </div>
+    <hr>
+    <div class="info">
+        <div class="vite">
+            @for (item of viteArray; track $index) {
+            <i class="bi bi-heart-fill" [ngClass]="item ? '' : 'vita_persa'"></i>
+            }
+        </div>
+        <span>pokemon: {{da_indovinare}}</span>
+        <span class="timer" [ngClass]="secondi <= tempoCritico ? 'timer-critico' : ''">
+            {{secondi | number:'1.2-2'}}</span>
+    </div>
+</div>
+
+
+<!-- #####   VERSIONE DESKTOP   ################################# -->
+}@case('desktop'){
+<div class="desktop">
+    <div class="colonna">
+
+        <div class="riga">
+            <div class="valore">
+                <span class="timer" [ngClass]="secondi <= tempoCritico ? 'timer-critico' : ''">
+                    {{secondi | number:'1.2-2'}}</span>
+            </div>
+        </div>
+
+        <div class="riga">
+            <div class="valore vite">
+                @for (item of viteArray; track $index) {
+                <i class="bi bi-heart-fill" [ngClass]="item ? '' : 'vita_persa'"></i>
+                }
+            </div>
+        </div>
+        <div class="riga">
+            <div class="label">Punteggio</div>
+            <div class="valore"> {{ punteggio }}</div>
+        </div>
+
+        <div class="riga">
+            <div class="label">Serie</div>
+            <div class="valore"> {{ serie }}</div>
+        </div>
+
+        <div class="riga">
+            <div class="label">Miglior serie</div>
+            <div class="valore"> {{ miglior_serie }}</div>
+        </div>
+
+        <div class="riga">
+            <div class="label">Risposta più veloce</div>
+            <div class="valore"> {{ risposta_piu_veloce }}</div>
+        </div>
+
+        <div class="riga">
+            <div class="label">Rimanenti</div>
+            <div class="valore"> {{ da_indovinare }}</div>
+        </div>
+
+
+        <div class="riga">
+            <button class="reset" (click)="onClickReset()">Reset</button>
+        </div>
+
+
+    </div>
+</div>
+}
+}

@@ -1,0 +1,130 @@
+@use '../../../../stili/variabili'as var;
+
+.filtro {
+    //Section principale
+    font-family: 'Lato';
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    .dropdown-filter {
+        //Bottone per aprire il filtro
+        width: 100%;
+        height: 6vh;
+        background-color: var.$giallo-pikachu;
+        color: #333;
+        border: #333 solid 1px;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .lista-filtraggio {
+        position: relative;
+        width: 100%;
+        height: 0px;
+        display: flex;
+        justify-content: center;
+        transition: ease-in .2s all;
+
+        .filtro-tipi {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: absolute;
+            z-index: 10;
+            border: 1px solid #333;
+            min-width: 100%;
+            padding: 1rem;
+            background-color: aliceblue;
+            border-radius: 10px;
+
+            .cat-speciale {
+                //Div delle categorie speciali 
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+                justify-content: space-around;
+
+                .input-cont {
+                    display: flex;
+                    align-items: center;
+                    gap: 1vh;
+
+                    input {
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .gen {
+                // div che contiene la scelta delle generazioni
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1rem;
+                gap: 5px;
+
+                #generazioni {
+                    border: #333 1px solid !important;
+                    width: 20%;
+                    border-radius: 5px;
+                    height: 1.5rem;
+                    display: block;
+                    cursor: pointer;
+
+                }
+
+            }
+
+            .cont-tipi {
+                display: flex;
+                flex-direction: row;
+                gap: 3vw;
+
+                .tipi {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0;
+                    gap: 1vh;
+                    list-style: none;
+                    width: 100%;
+
+                    .tipo {
+                        cursor: pointer;
+                        width: 100%;
+                        opacity: 0.6;
+                        color: white;
+                        font-size: 1rem;
+                        height: 4vh;
+                        border-radius: 5px;
+                                        }
+
+                    .tipo.selezionato {
+                        color: black;
+                        opacity: 1;
+                        border: #333 2px solid;
+                    }
+                }
+            }
+
+            .cerca {
+                cursor: pointer;
+                width: 50%;
+                height: 3vh;
+                border: #333 solid 1px;
+                height: 4vh;
+                border-radius: 5px;
+                align-self: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1vh;
+                font-size: 1rem;
+            }
+        }
+    }
+}

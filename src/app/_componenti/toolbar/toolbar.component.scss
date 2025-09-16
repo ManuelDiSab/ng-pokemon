@@ -1,0 +1,132 @@
+        @use '../../../stili/variabili'as var;
+
+        .navbar {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0rem 0.8rem;
+            background-color: var.$rosso-charizard;
+            height: 10vh;
+
+            .menu-part {
+                height: 100%;
+                flex: 1;
+
+                .logo {
+                    display: block;
+                    height: 100%;
+                }
+
+                .lista-voci {
+                    list-style: none;
+                    display: flex;
+                    height: 100%;
+                    gap: 1rem;
+                    padding: 0;
+
+                    .voce-menu {
+                        flex: 1;
+                        display: flex;
+                        height: 100%;
+                        width: 100%;
+
+                        &:hover {
+
+                            @media (hover:hover) and (pointer:fine) {
+
+                                // Faccio funzionare l'hover solo su desktop
+                                .link-voce {
+                                    color: #fff;
+
+                                    &::after {
+                                        width: 100%;
+                                        background-color: #fff;
+                                    }
+                                }
+                            }
+                        }
+
+                        .link-voce {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-family: 'Roboto';
+                            width: 100%;
+                            text-decoration: none;
+                            color: #333;
+                            font-weight: 600;
+                            font-size: .85rem;
+                            position: relative;
+
+                            &::after {
+                                content: '';
+                                position: absolute;
+                                bottom: -1px; // Subito sotto la base della navbar
+                                left: 0;
+                                border-radius: 10px;
+                                width: 0%;
+                                height: 4px;
+                                background-color: #ffffffd0;
+                                transition: width 0.3s ease;
+                            }
+
+                        }
+
+                        .active {
+                            &::after {
+                                width: 100%;
+                            }
+
+                            color: #ffffffd0;
+                            font-weight: 800;
+                        }
+                    }
+
+                    .ricerca_in_menu {
+                        display: none;
+                    }
+                }
+            }
+
+            .ricerca {
+                display: flex;
+                align-items: center;
+                justify-content: end;
+            }
+        }
+
+        @media(max-width:768px) {
+            .navbar {
+                justify-content: center;
+
+                .menu-part {
+                    // padding: 0 2rem;
+
+                    .lista-voci {
+                        .voce-menu {
+                            .link-voce {
+                                &::after {
+                                    content: none;
+                                }
+                            }
+
+                            .active {
+                                color: #ffffffd0;
+                                font-weight: 800;
+                            }
+                        }
+
+                        .ricerca_in_menu {
+                            margin: auto;
+                            display: block !important;
+                        }
+                    }
+                }
+
+                .logo,
+                .ricerca {
+                    display: none;
+                }
+            }
+        }

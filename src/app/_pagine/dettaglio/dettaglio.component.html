@@ -1,0 +1,106 @@
+<!-- uso *ngIf con 'as data' per sottoscrivere l'observable una sola volta 
+     e usare i dati in modo sicuro solo quando sono pronti -->
+<ng-container *ngIf="pokemonData$ | async as data">
+    <section class="header">
+        <!-- Pokémon Precedente -->
+        <div class="previous">
+            <a [routerLink]="['/pokedex', data.prev.name]" class="header-content">
+                <i class="bi bi-arrow-left"></i>
+                #{{data.prev.id.toString().padStart(4,'0')}}: {{data.prev.name | titlecase}}
+                <img [src]="data.prev.sprite" [alt]="data.prev.name">
+            </a>
+        </div>
+
+        <!-- Titolo -->
+        <div class="title">
+            <h1 class="header-content">
+                {{data.details.nome | titlecase}}
+            </h1>
+        </div>
+
+        <!-- Pokémon Successivo -->
+        <div class="next">
+            <a [routerLink]="['/pokedex', data.next.name]" class="header-content">
+                <img [src]="data.next.sprite" [alt]="data.next.name">
+                #{{data.next.id.toString().padStart(4,'0')}}: {{data.next.name | titlecase }}
+                <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+
+
+
+    <!-- Contenuto principale  -->
+    <section class="contenuto">
+
+        <ul class="menu" id="Menu" #menu>
+            <!-- Menu in alto per scorrere -->
+            <span class="label_menu">Vai a: </span>
+            @for (item of voci; track $index) {
+            <li (click)="scrollTo($index - 1)" [ngClass]="{'attivo': activeSection === item}">{{item}}</li>
+            }
+        </ul>
+
+        <div ngbDropdown class="page_menu_mobile">
+            <button type="button" id="drop-d-menu-btn" ngbDropdownToggle>
+                Vai a...
+            </button>
+            <div ngbDropdownMenu class="drop-d-menu" aria-labelledby="drop-d-menu-btn">
+                @for (item of voci; track $index) {
+                <button (click)="scrollTo($index - 1)" ngbDropdownItem [ngClass]="{'attivo': activeSection === item}">
+                    {{item}}</button>
+                }
+            </div>
+        </div>
+
+
+        <div class="descrizione" #sectionRef>
+            <p>
+                <em>{{data.details.nome | titlecase }}</em> è un pokemon di tipo
+                <span [style.color]="colori[data.details.tipo1]" class="p_tipo">{{data.details.tipo1}}</span>
+                <span *ngIf="data.details.tipo2"> e
+                    <span [style.color]="colori[data.details.tipo2]" class="p_tipo">{{data.details.tipo2}}</span>
+                </span>,
+                introdotto nella {{data.species.generazione}}.
+            </p>
+            <p>{{data.species.desc_1}}</p>
+        </div>
+
+
+        <div class="dettagli"><!-- Contenitore principale con flexbox -->
+            <!-- #####  PARTE SINISTRA CON L'IMMAGINE ############################-->
+            <div class="left">
+                <div class="cornice">
+                    <img [src]="data.details.sprite" class="pokemon_img" [alt]="'Immagine di ' + data.details.nome"
+                        loading="lazy">
+                    <a href="javascript:void(0)" id="verso" (click)="versoPokemon(data.details?.verso)">
+                        <i class="bi bi-play-fill"></i> Riproduci verso
+                    </a>
+                </div>
+            </div>
+
+            <!-- #####  PARTE DESTRA CON LE INFO ################################-->
+            <div class="info-pokemon">
+                <info-pokemon [data]="data" [colori]="colori"></info-pokemon>
+
+            </div>
+        </div>
+
+        <section class="seconda_parte">
+            <section class="sezione_dettagli" #sectionRef>
+                <h2 class="acc_title">Statistiche</h2>
+                <statistiche [stats]="(pokemonData$ | async)?.details?.stats">
+                </statistiche>
+            </section>
+            <section class="sezione_dettagli" #sectionRef>
+                <h2 class="acc_title">Debolezze</h2>
+                <debolezze [type]="(pokemonData$ | async)?.details?.url_types"></debolezze>
+            </section>
+            <section class="sezione_dettagli" #sectionRef>
+                <h2 class="acc_title">Evoluzioni</h2>
+                <evoluzioni [evoluzioni]="(pokemonData$ | async)?.evolution_chain"></evoluzioni>
+            </section>
+        </section>
+    </section>
+</ng-container>

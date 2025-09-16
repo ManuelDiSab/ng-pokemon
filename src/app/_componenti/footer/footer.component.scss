@@ -1,0 +1,54 @@
+@use '../../../stili/variabili' as var;
+.policy {
+    color: #fff;
+
+    &:hover,
+    &:focus {
+        color: #fff;
+    }
+}
+
+.section {
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 1.5vh;
+    background-color: var.$rosso-charizard ;
+    // background-color: #333;
+    color: #fff;
+    .contatti {
+        margin-bottom: 0.5vh;
+        ul {
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+
+            li {
+                a {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:768px) {
+    .contatti {
+        text-align: center;
+
+        ul {
+            gap: 4rem !important;
+
+            li {
+                font-size: 2rem;
+
+                .nome {
+                    display: none;
+                }
+            }
+        }
+    }
+}

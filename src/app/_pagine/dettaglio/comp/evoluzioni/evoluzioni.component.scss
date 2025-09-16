@@ -1,0 +1,135 @@
+@use '../../../../../stili/variabili'as var;
+
+.container_evoluzioni {
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    // width: max-content;
+    max-width: 95vw;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    box-shadow: var.$box_shadow-table;
+    background-color: var.$bg-table;
+    // permette lo scroll orizzontale se la catena è larga
+
+    .tree {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 2rem;
+        padding-bottom: 1rem;
+    }
+
+    // ogni nodo è una griglia: colonna 1 = pokemon, colonna 2 = colonna dei figli
+    .node {
+        display: flex;
+        gap: 1rem;
+        align-items: start; // l'altezza della riga segue i figli (il pokemon può essere centrato)
+        position: relative;
+
+        // centra verticalmente la card rispetto alla colonna dei figli
+        .pokemon {
+            grid-column: 1;
+            width: 15vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            align-self: center; // IMPORTANT: centra verticalmente la card rispetto ai figli
+
+            .sprite {
+                max-width: 10vw;
+                width: 100%;
+                object-fit: contain;
+            }
+
+            .link {
+                text-decoration: none;
+                font-size: 1.15rem ;
+                font-weight: 600;
+                color: #333;
+                padding: 10px 0;
+            }
+
+            .tipo_container {
+                display: flex;
+                gap: 5px;
+                width: 100%;
+                justify-content: center;
+
+            }
+        }
+
+        // la colonna che contiene tutti i figli di questo nodo (stack verticale)
+        .children-row {
+            grid-column: 2;
+            display: flex;
+            flex-direction: column; // STACK dei figli (una sopra l'altra)
+            gap: 1rem;
+            align-items: center;
+            justify-content: flex-start;
+            margin-left: 0; // il gap è già gestito con grid/gap
+            // min-width: 220px;
+        }
+
+        // per ogni figlio: freccia (a sinistra) + il card del figlio (a destra)
+        .connector-and-child {
+            display: flex;
+            flex-direction: row; // freccia a sinistra, child a destra
+            align-items: center; // allinea verticalmente freccia e card del figlio
+            gap: 0.75rem;
+        }
+
+        // freccia + condizioni
+        .stage-connector {
+            display: flex;
+            flex-direction: column-reverse; // freccia sopra, condizioni sotto (se vuoi)
+            align-items: center;
+            justify-content: center;
+            width: 10vw;
+            flex-shrink: 0;
+
+            .bi {
+                font-size: 1.6rem;
+                transform: rotate(-90deg); // freccia verso destra
+                display: block;
+                margin-bottom: 0.25rem;
+            }
+
+            .condizioni {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                font-size: 0.78rem;
+                text-align: center;
+                max-width: 140px;
+                color: #333;
+            }
+
+            .condizioni .item {
+                height: auto;
+                max-height: 28px;
+            }
+        }
+    }
+}
+
+@media (max-width:768px) {
+
+    .sprite {
+        max-width: 15vw !important;
+    }
+    .link{
+        font-size: 1rem * 0.9 !important;
+    }
+    .tipo {
+        font-size: 1rem * 0.875 !important;
+    }
+    .condizione_desc{
+        font-size: .75rem;
+    }
+}

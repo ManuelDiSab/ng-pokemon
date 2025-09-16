@@ -1,0 +1,139 @@
+@use '../../../stili/variabili'as var;
+
+:host {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.principale {
+
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+
+    .contenuto {
+        width: 60%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .testo {
+            width: 70%;
+            text-align: center;
+
+            h1 {
+                font-size: 2.2rem;
+                margin-bottom: 4vh;
+                // color: rgba(255, 255, 255, 0.9);  //scuro
+                color: #333; //chiaro
+
+                b {
+                    color: var.$rosso-charizard;
+                }
+            }
+
+            .desc {
+                font-size: 1.1rem;
+                line-height: 1.5;
+                color: #333; //chiaro
+
+                a {
+                    text-decoration: none;
+                }
+            }
+
+            .btn-group {
+                padding-top: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                gap: 1rem;
+
+                .btn-home {
+                    text-decoration: none;
+                    border: 0px;
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                    background-color: var.$rosso-charizard;
+                    color: #fff;
+                    width: 50%;
+                    padding: 1rem;
+                    cursor: pointer;
+                    border-radius: 5px;
+                    transition: 0.2s ease;
+
+                    &:hover {
+                        // background-color: #A00000;
+                        transform: scale(1.05);
+                    }
+
+                    &:active {
+                        background-color: #A00000;
+                        transform: scale(0.98);
+                    }
+
+                }
+            }
+        }
+    }
+
+    .banner {
+        width: 40%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .sfondo {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+    }
+}
+
+@media (max-width: 820px) {
+    .principale {
+        margin-top: 5vh;
+        gap: 5vh;
+        flex-direction: column;
+
+        .contenuto {
+            width: 100%;
+
+            .testo {
+                width: 90%;
+                line-height: 1.5;
+                text-align: left;
+
+                h1,
+                h5 {
+                    text-align: center;
+                }
+
+                .btn-group {
+                    .btn-home {
+                        text-align: center;
+                        width: 70%;
+                    }
+                }
+            }
+        }
+
+        .banner {
+            display: none;
+        }
+
+    }
+}
+
+@media (max-width: 600px) {
+    .btn-group {
+        padding-bottom: 10vh;
+
+        .btn-home {
+            width: 90% !important;
+        }
+    }
+}

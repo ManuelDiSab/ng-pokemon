@@ -1,0 +1,33 @@
+<section class="Statistiche">
+    <div class="container_stats">
+        <h5>Statistiche base</h5>
+        <div class="container_table">
+            <table class="table">
+                <tbody>
+                    @for (stat of stats; track stat.nome; let i = $index) {
+                    <tr>
+                        <td class="nome_stat">{{stat.nome}}</td>
+                        <td>{{stat.base_stat}}</td>
+                        <td class="barra_container">
+                            <div class="barra" [ngStyle]="getColorStat(stat.base_stat)"></div>
+                        </td>
+                        @if(stat.nome === 'PS'){ <td>{{hpMinAt100(stat.base_stat)}}</td>} @else {<td>
+                            {{statNonHPMinAt100(stat.base_stat)}}</td>}
+                        @if(stat.nome === 'PS'){ <td>{{hpMaxAt100(stat.base_stat)}}</td>} @else {<td>
+                            {{statNonHPMaxAt100(stat.base_stat)}}</td>}
+                    </tr>
+                    }
+                    <tr>
+                        <td class="nome_stat">Totale</td>
+                        <td class="tot"><b>{{calcolaStatsTotali(stats)}}</b></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><small>La statistica Max viene calcolata con una natura favorevole, 32 IV e 252 EV;</small>
+                <small> La statistica Min viene calcolata con una natura sfavorevole, 0 IV e 0 EV;</small></p>
+        </div>
+    </div>
+</section>

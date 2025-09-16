@@ -1,0 +1,67 @@
+@use '../../../../../stili/variabili' as var;
+.Statistiche {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 2rem;
+
+    .container_table {
+        border: #737373 1px solid;
+        padding: 1rem;
+        border-radius: 10px;
+        background-color:var.$bg-table;
+        
+        table{
+            border-radius: 10px;
+            overflow: hidden;
+        }
+    }
+
+    .container_stats {
+        flex: 1 1 0;
+        min-width: 0;
+        margin-bottom: 10vh;
+
+        h5 {
+            margin-bottom: 5vh;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+
+            td,
+            tr,
+            th {
+                border: none
+            }
+            tbody {
+                tr {
+                    th {
+                        text-align: end;
+                    }   
+                    .nome_stat{
+                        color: #737373;
+                    }
+                    td {
+                        width: 10%;
+                        font-size: .8rem;
+                        .barra {
+                            height: 2vh;
+                            margin: auto 0;
+                            border-radius: 5px;
+                            border: 1px solid #b9b8b8;
+                        }
+                    }
+
+                    .barra_container {
+                        width: 100%;
+                        vertical-align: middle;
+                    }
+                }
+            }
+        }
+    }
+}

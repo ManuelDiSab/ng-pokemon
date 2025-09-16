@@ -1,0 +1,1 @@
+export type query = 'types' | 'nome' | 'is_legendary' | 'is_mythical' | 'generazione'

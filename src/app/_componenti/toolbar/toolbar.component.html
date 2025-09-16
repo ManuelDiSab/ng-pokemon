@@ -1,0 +1,29 @@
+<nav class="navbar">
+    <div class="logo menu-part">
+        <a routerLink="/">
+            <img src="/logo.png" alt="logo Gotta Catch" class="logo">
+        </a>
+    </div>
+
+    <div class="menu-part">
+        <ul class="lista-voci ">
+            @for (voce of voci; track $index)
+            {
+            <li class="voce-menu">
+                <a [routerLink]="voce.link" class="link-voce" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact:true}">{{voce.nome}}
+                </a>
+            </li>
+            }
+            <li class="ricerca_in_menu">
+                <search-bar versione="modal"></search-bar>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="ricerca menu-part">
+        <!-- <button class="accedi">ACCEDI <i class="bi bi-box-arrow-in-right"></i></button> -->
+        <search-bar versione="normale"></search-bar>
+    </div>
+</nav>

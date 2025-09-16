@@ -1,0 +1,55 @@
+<section class="principale"><!-- ###  CONTENUTO DELLA PAGINA  #####-->
+    @if (this.noPage_message !== '') {
+    <div class="alert">
+        <p>
+            <i class="danger bi bi-exclamation-triangle-fill"></i> <span>{{noPage_message}}</span><i
+                class="bi bi-x-lg chiudi" (click)="noPage_message=''"></i>
+        </p>
+    </div>
+    }
+
+    <div class="header">
+
+        <div class="ordinamento header-section"><!--### container del dropdown button ###-->
+            <label for="sort">Ordinamento per</label>
+            <select id="sort" (change)="ordinamento($event)">
+                <option value="id-asc">Numero crescente</option>
+                <option value="id-desc">Numero decrescente</option>
+                <option value="nome-asc">Alfabeto: A-Z </option>
+                <option value="nome-desc">Alfabeto: Z-A </option>
+            </select>
+        </div>
+
+        <!-- #########  HEADER CON FILTRO, DROPDOWN CON SCELTA VISUALIZZAZIONE E SEARCHBAR ##################-->
+        <div class="filtro header-section"><!--### container del filtro ###-->
+            <filtro-pokemon (FiltriApllicati)="onFiltriApplicati($event)"></filtro-pokemon>
+        </div>
+    </div>
+    <div class="contenuto">
+        <h1 class="titolo">Pokedex nazionale</h1>
+
+        <div class="card-list" role="list" #container>
+            @switch (pokemonFiltrati.length > 0) {
+            @case(true){
+            @for (pokemon of pokemonFiltrati; track $index) {
+            <card-pokemon [pokemon]="pokemon"></card-pokemon>
+            }
+            }
+            @case(false){
+            @for (pokemon of pokemonList; track $index) {
+            <card-pokemon [pokemon]="pokemon"></card-pokemon>
+            }
+            }
+            }
+        </div>
+        <button class="carica" (click)="caricaPokemon()" [disabled]="loading"
+            *ngIf="pokemonFiltrati.length === 0">Carica
+            alti pokemon</button>
+    </div>
+    <button class="scroll-top" (click)="scrollToTop()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"  fill="#F3F3F3">
+            <path d="M440-160v-487L216-423l-56-57 320-320 320 320-56 57-224-224v487h-80Z" />
+        </svg>
+    </button>
+
+</section>

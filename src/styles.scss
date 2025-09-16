@@ -1,1 +1,96 @@
 /* You can add global styles to this file, and also import other style files */
+@use 'stili/variabili'as var;
+@use 'bootstrap/scss/bootstrap';
+
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    user-select: none;
+    border: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    touch-action: manipulation;
+}
+
+body {
+    background-color: rgba(255, 255, 255, 0.6); //chiaro
+}
+
+.modal-content {
+    border: 0;
+    background-color: transparent;
+    padding-top: 10vh;
+
+    .modal-body {
+        padding: 0 !important;
+        background-color: transparent;
+    }
+}
+
+
+.offcanvas {
+    background-color: #1f1e1e !important;
+    width: 60% !important;
+    transform: translateX(0) translateZ(0);
+    /* aiuta la GPU mobile a fare animazioni fluide */
+    transition: transform 0.3s ease-in-out;
+}
+
+.titolino {
+    color: rgba(255, 255, 255, .8);
+    text-align: left;
+    width: 90%;
+    margin: auto;
+    padding: 1rem 0;
+}
+
+.lista_btn {
+    color: rgba(255, 255, 255, .8);
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .btn_item {
+        width: 90%;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, .8);
+        border-radius: 8px;
+        padding: .5rem;
+        color: rgba(255, 255, 255, .8);
+        font-weight: 600;
+
+        button {
+            height: 100%;
+            width: 100%;
+            background-color: transparent;
+            color: rgba(255, 255, 255, .8);
+
+            &:disabled {
+                opacity: .5;
+            }
+        }
+    }
+
+    .attiva {
+        font-weight: 700;
+        background-color: #f0f8ff;
+        color: #2c3e50;
+
+        button {
+            color: #2c3e50;
+            font-weight: 700;
+
+            &:disabled {
+                opacity: .5;
+            }
+        }
+    }
+}

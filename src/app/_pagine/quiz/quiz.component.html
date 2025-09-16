@@ -1,0 +1,70 @@
+<section class="gioco">
+    <menu-quiz class="menu" [gen]="generazioni" [selectedGens]="selectedGens"
+        (selectedGensChange)="onSelectedGensChange($event)" [difficolta]="difficolta"
+        (difficoltaChange)="cambioDifficolta($event)" [start]="start"></menu-quiz>
+    <div class="hud" [style.height.px]="hudHeight">
+        @if(!start){
+        <button class="start" (click)="iniziaPartita()">Inizia partita</button>
+        }@else {
+        @if(vittoria){
+        <section class="game_over">
+            <h1>Hai vinto!!</h1>
+            <p>Complimenti, hai indovinato tutti i pokemon disponibili.</p>
+            <ul class="lista_stat">
+                <li class="item_stat">Punteggio:<span> {{punteggio}} </span></li>
+                <li class="item_stat">Serie migliore: <span>{{miglior_serie}}</span></li>
+                <li class="item_stat">Pokemon indovinati: <span>{{counter}}</span></li>
+                <li class="item_stat">Risposta più veloce: <span>{{rispostaPiuVeloce | number:'1.2-2'}}s</span> </li>
+            </ul>
+            <button (click)="game_reset()" class="reset">Nuova partita</button>
+        </section>
+        }@else{
+        @if(!sconfitta){
+        <info-display display="mobile" (reset)="game_reset()" [da_indovinare]="da_indovinare"
+            [miglior_serie]="miglior_serie" [punteggio]="punteggio" [tempoCritico]="tempoCritico"
+            [viteArray]="arrayVite" [secondi]="secondi" [serie]="serie" class="info-mobile"></info-display>
+        <div class="body">
+            <div class="pokemon" #pokemonContainer   >
+                @if(!is_loading){
+                <img [src]="pokemon.sprite" alt="" class="pokemon_sprite"
+                    [ngClass]="indovinato ? 'indovinato' : 'silhouette'">
+                }@else{
+                <div class="loader">
+                    <img src="/pikachu-running.gif" alt="Caricamento..." loading="lazy" class="spinner" 
+                   >
+                </div>
+                }
+            </div>
+
+            <div class="risposta">
+                <input type="text" spellcheck="false" [ngClass]="indovinato ? 'giusto' : ''" (focus)="onInputFocus()"
+                    (input)="guessPokemon(risposta.value)" (blur)="onInputBlur()" placeholder="indovina il pokemon..."
+                    #risposta>
+                <button class="skip" (click)="prossimo()" #skip>SKIP</button>
+            </div>
+        </div>
+
+
+
+
+
+        }@else{
+        <section class="game_over">
+            <h1>Game over</h1>
+            <ul class="lista_stat">
+                <li class="item_stat">Punteggio: <span> {{punteggio}} </span></li>
+                <li class="item_stat">Serie migliore: <span>{{miglior_serie}}</span></li>
+                <li class="item_stat">Pokemon indovinati: <span>{{counter}}</span></li>
+                <li class="item_stat">Risposta più veloce: <span> {{rispostaPiuVeloceLabel}} </span></li>
+            </ul>
+            <button (click)="game_reset()" class="reset">Nuova partita</button>
+        </section>
+        }}
+
+        }
+    </div>
+    <info-display display="desktop" (reset)="game_reset()" [da_indovinare]="da_indovinare"
+        [miglior_serie]="miglior_serie" [punteggio]="punteggio" [tempoCritico]="tempoCritico" [viteArray]="arrayVite"
+        [secondi]="secondi" [serie]="serie" class="info-desktop"
+        [risposta_piu_veloce]="rispostaPiuVeloceLabel"></info-display>
+</section>

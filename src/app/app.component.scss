@@ -1,0 +1,44 @@
+main {
+    font-family: 'roboto';
+    height: fit-content;
+    min-height: 100vh;
+    // background-color: #181818; //scuro
+}
+
+.banner-connessione {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: black;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 0.75rem;
+    font-weight: bold;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.overlay-spinner {
+    //Spinner di pikachu che corre                
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6); // opacità dello sfondo
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+
+    .spinner-content {
+        background: transparent;
+        padding: 2rem;
+
+        img {
+            width: 120px;
+            height: auto;
+        }
+    }
+}
