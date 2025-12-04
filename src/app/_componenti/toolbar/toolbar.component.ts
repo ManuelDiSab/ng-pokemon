@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
 
+export type VoiceMenu = {
+  link: string,
+  icon?: string,
+  name: string
+}
+
 @Component({
   selector: 'toolbar',
   standalone: false,
@@ -7,7 +13,9 @@ import { Component } from '@angular/core';
   styleUrl: './toolbar.component.scss'
 })
 export class ToolbarComponent {
-  voci:{nome:string, link:string, icona?:string}[]= [ 
-    {nome:'HOMEPAGE', link:'', icona:'/pokeball.svg'},{nome:'POKEDEX', link:'pokedex'},{nome:'QUIZ', link:"quiz"}
+  voci: VoiceMenu[] = [
+    { name: 'HOMEPAGE', link: 'homepage', icon: '/pokeball.svg' },
+    { name: 'POKEDEX', link: 'pokedex' },
+    { name: 'QUIZ', link: "quiz" }
   ]
 }

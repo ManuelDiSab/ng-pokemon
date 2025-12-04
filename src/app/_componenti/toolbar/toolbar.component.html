@@ -11,7 +11,7 @@
             {
             <li class="voce-menu">
                 <a [routerLink]="voce.link" class="link-voce" routerLinkActive="active"
-                    [routerLinkActiveOptions]="{exact:true}">{{voce.nome}}
+                    [routerLinkActiveOptions]="{exact: voce.link !== ''}">{{voce.name}}
                 </a>
             </li>
             }
