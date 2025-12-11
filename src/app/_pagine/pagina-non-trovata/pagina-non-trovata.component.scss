@@ -1,6 +1,14 @@
-section{
+section {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+
+    h1 {
+        color: var(--title);
+    }
+
+    a {
+        color: var(--text);
+    }
 }

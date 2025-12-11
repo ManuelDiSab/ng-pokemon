@@ -1,11 +1,12 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, NgZone, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ApiService } from '../../_servizi/api.service';
 import { UtilityService } from '../../_servizi/utility.service';
-import { map, Observable, switchMap, tap } from 'rxjs';
+import { map, Observable, Subscription, switchMap, tap } from 'rxjs';
 import { IGen } from '../../interface/IGen.interface';
 import { difficultyPresets } from '../../interface/IDifficolta.interface';
 import { difficolta } from '../../_tipi/Difficolta.type';
 import { ConnectionService } from '../../_servizi/connection.service';
+import { KeyboardService } from '../../_servizi/keyboard.service';
 
 interface pokemon {
     nome: string
@@ -20,7 +21,7 @@ interface pokemon {
     templateUrl: './quiz.component.html',
     styleUrl: './quiz.component.scss'
 })
-export class QuizComponent implements OnDestroy, OnInit {
+export class QuizComponent implements OnDestroy, OnInit, AfterViewInit {
     counter: number = 0
     serie: number = 0
     miglior_serie: number = 0
@@ -35,7 +36,7 @@ export class QuizComponent implements OnDestroy, OnInit {
     secondi!: number
     tempoCritico!: number
     difficolta: difficolta = 'media'
-    private preset = difficultyPresets[this.difficolta];
+    preset = difficultyPresets[this.difficolta];
     generazioni$: Observable<any>
     generazioni: IGen[] = []
     selectedGens: number[] = []
@@ -56,10 +57,7 @@ export class QuizComponent implements OnDestroy, OnInit {
     }
     interval: any
     url_sprite: string = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork'
-    hudHeight: number = 0
-
-    constructor(private api: ApiService, private UT: UtilityService, private cn: ConnectionService,
-        private el: ElementRef, private renderer: Renderer2) {
+    constructor(private api: ApiService, private UT: UtilityService, private el: ElementRef) {
         this.pokemon$ = this.api.getDettaglioPokemon(this.NumeroCasuale())
         this.generazioni$ = this.api.getGenerazioni().pipe(
             map((rit: any) => rit.data.map(
@@ -72,11 +70,12 @@ export class QuizComponent implements OnDestroy, OnInit {
         this.generazioni$.subscribe(rit => {
             this.generazioni = rit
         })
+    }
+    ngAfterViewInit(): void {
 
     }
     ngOnDestroy(): void {
         clearInterval(this.interval)
-
     }
 
     /**
@@ -87,6 +86,12 @@ export class QuizComponent implements OnDestroy, OnInit {
         return window.innerWidth <= 768;
     }
 
+    calcolaAltezza(): string {
+        if (this.isMobile()) {
+
+        }
+        return ''
+    }
 
     onInputFocus() {
         if (!this.isMobile()) return; // SOLO mobile

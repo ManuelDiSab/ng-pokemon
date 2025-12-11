@@ -1,0 +1,48 @@
+<nav class="navbar-container">
+    <nav class="navbar" #navbar>
+
+        <!-- LOGO -->
+        <div class="logo-container">
+            <a routerLink="/">
+                <img src="/logo.png" alt="logo Gotta Catch" class="logo">
+            </a>
+        </div>
+
+        <!-- MENU DESKTOP -->
+        <ul class="menu desktop">
+            @for (item of menuVoices; track $index) {
+            <li class="voice">
+                <a [routerLink]="item.link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                    {{item.name}}
+                </a>
+            </li>
+            }
+            <div class="search-container">
+                <search-bar versione="normale"></search-bar>
+            </div>
+        </ul>
+
+        <div class="mobile-container">
+            <search-bar versione="modal" (click)="closeMenu()"></search-bar>
+            <!-- HAMBURGER (solo su dispositivi mobile ) -->
+            <div class="hamburger mobile" [class.open]="menuOpen" (click)="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+
+        <!-- MENU MOBILE -->
+        <ul class="menu mobile-menu" [class.open]="menuOpen">
+            @for (item of menuVoices; track $index) {
+            <li class="voice">
+                <a [routerLink]="item.link" (click)="closeMenu()">
+                    {{item.name}}
+                </a>
+            </li>
+            }
+        </ul>
+
+    </nav>
+</nav>
+@if(menuOpen && isDesktop === false){
+    <div class="overlay"></div>
+}

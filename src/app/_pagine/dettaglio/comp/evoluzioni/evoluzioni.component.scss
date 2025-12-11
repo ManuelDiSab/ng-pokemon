@@ -11,7 +11,7 @@
     justify-content: center;
     margin: auto;
     box-shadow: var.$box_shadow-table;
-    background-color: var.$bg-table;
+    background-color: var(--bg-table);
     // permette lo scroll orizzontale se la catena è larga
 
     .tree {
@@ -49,7 +49,7 @@
 
             .link {
                 text-decoration: none;
-                font-size: 1.15rem ;
+                font-size: 1.15rem;
                 font-weight: 600;
                 color: #333;
                 padding: 10px 0;
@@ -123,13 +123,16 @@
     .sprite {
         max-width: 15vw !important;
     }
-    .link{
+
+    .link {
         font-size: 1rem * 0.9 !important;
     }
+
     .tipo {
         font-size: 1rem * 0.875 !important;
     }
-    .condizione_desc{
+
+    .condizione_desc {
         font-size: .75rem;
     }
 }

@@ -13,9 +13,9 @@ export class UtilityService {
     constructor(private http: HttpClient, private TR: TraduzioniService) {
     }
 
-    readonly sostituzioni:Record<string, string> = {
-        'nidoran-m':'nidoran','nidoran-f':'nidoran','mr-mime':'mr.mime', 'mr.rime':'mr.rime','mime-jr':'mime jr' ,
-        'urshifu-single-strie':'urshifu','urshifu-rapid-strike':'urshifu', 'palafin-zero':'palafin'
+    readonly sostituzioni: Record<string, string> = {
+        'nidoran-m': 'nidoran', 'nidoran-f': 'nidoran', 'mr-mime': 'mr.mime', 'mr.rime': 'mr.rime', 'mime-jr': 'mime jr',
+        'urshifu-single-strie': 'urshifu', 'urshifu-rapid-strike': 'urshifu', 'palafin-zero': 'palafin'
     }
 
 
@@ -135,6 +135,14 @@ export class UtilityService {
         return this.query_string;
     }
 
+    getGenderRatio(genderRate: number) {
+        if (genderRate === -1) {
+            return { male: null, female: null, text: "Nessuno" };
+        }
+        const female = (genderRate / 8) * 100;
+        const male = 100 - female;
+        return { male, female, text: `${female}% femmina / ${male}% maschio` };
+    }
 
 
     /**

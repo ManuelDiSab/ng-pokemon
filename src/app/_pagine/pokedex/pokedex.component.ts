@@ -1,9 +1,8 @@
-import { Component, HostListener, OnInit, } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { ApiService } from '../../_servizi/api.service';
 import { Meta, Title } from '@angular/platform-browser';
 import { ICard } from '../../interface/ICard.interface';
 import { finalize } from 'rxjs';
-import { UtilityService } from '../../_servizi/utility.service';
 import { ConnectionService } from '../../_servizi/connection.service';
 import { HttpParams } from '@angular/common/http';
 import { PokemonService } from '../../_servizi/pokemon.service';
@@ -61,10 +60,10 @@ export class PokedexComponent implements OnInit {
         // Permette di leggere la ricerca o i filtri dall’URL
         this.route.queryParams.subscribe(params => {
             if (params['nome']) {
-                // Se esiste la query "nome", impostala nei parametri
+                // Se esiste la query "nome", la imposto nei parametri
                 this.query = new HttpParams().set('nome', params['nome']);
             } else {
-                // Altrimenti resetta la query
+                // Altrimenti resetto la query
                 this.query = new HttpParams();
             }
 
@@ -76,10 +75,10 @@ export class PokedexComponent implements OnInit {
             this.caricaPokemon();
         });
 
-        // Imposta il titolo della pagina
+        // Il titolo della pagina
         this.titleService.setTitle('Lista Pokémon | Gotta Catch');
 
-        // Imposta meta description
+        // Il meta description
         this.metaService.updateTag({
             name: 'description',
             content: 'Scopri tutti i Pokémon dalla PokéAPI'
@@ -98,7 +97,6 @@ export class PokedexComponent implements OnInit {
      */
     caricaPokemon() {
         this.CN.vedo();
-
         // Chiamata API per lista Pokémon
         this.api.getPokemonList(this.query, this.current_page, this.ordine).pipe(
             finalize(() => this.CN.non_vedo()) // Nascondo il loader alla fine
@@ -106,21 +104,6 @@ export class PokedexComponent implements OnInit {
             this.osservatorePokemon(this.pokemonList, this.url_sprite)
         );
     }
-
-    /**
-     * Modifica l'ordinamento dei Pokémon (es: id-asc, id-desc)
-     * e ricarica la lista dalla prima pagina
-     */
-    ordinamento(e: Event) {
-        this.current_page = 1;
-        const ordinamento = (e.currentTarget as HTMLSelectElement).value;
-        this.ordine = ordinamento;
-
-        // Reset lista prima di ricaricare
-        this.pokemonList = [];
-        this.caricaPokemon();
-    }
-
     /**
      * Applicazione dei filtri interni al Pokedex
      * @param string HttpParams contenente filtri tipo, leggendari, ecc.
@@ -130,6 +113,7 @@ export class PokedexComponent implements OnInit {
         this.pokemonList = [];
         this.query = string;
         // Ricarica lista con filtri applicati
+        this.scrollToTop()
         this.caricaPokemon();
     }
 
@@ -185,8 +169,6 @@ export class PokedexComponent implements OnInit {
             // Azioni da eseguire al completamento della chiamata
             complete: () => {
                 this.current_page++;
-                console.log('completato', this.current_page);
-
                 // Nasconde messaggio di "nessun Pokémon" dopo 10 secondi
                 setTimeout(() => { this.noPage_message = '' }, 10000);
             }

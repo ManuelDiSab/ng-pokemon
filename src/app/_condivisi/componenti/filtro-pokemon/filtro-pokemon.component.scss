@@ -1,130 +1,232 @@
-@use '../../../../stili/variabili'as var;
+$border:#5555556c 1px solid;
 
-.filtro {
-    //Section principale
-    font-family: 'Lato';
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 1;
+}
 
-    .dropdown-filter {
-        //Bottone per aprire il filtro
-        width: 100%;
-        height: 6vh;
-        background-color: var.$giallo-pikachu;
-        color: #333;
-        border: #333 solid 1px;
-        font-size: 1rem;
+.filtri {
+    width: 100%;
+    position: relative;
+
+    .filter-button {
+        width: 300px;
+        height: 50px;
+        display: none;
         border-radius: 5px;
-        cursor: pointer;
-    }
+        color: var(--secondario);
+        background: transparent;
+        border: 2px solid var(--secondario);
+        transition: all .2s ease;
+        font-size: 600;
+        margin: auto;
+        @media screen and (min-width:768px) {
+            display: block;
+        }
 
-    .lista-filtraggio {
-        position: relative;
-        width: 100%;
-        height: 0px;
-        display: flex;
-        justify-content: center;
-        transition: ease-in .2s all;
-
-        .filtro-tipi {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            position: absolute;
-            z-index: 10;
-            border: 1px solid #333;
-            min-width: 100%;
-            padding: 1rem;
-            background-color: aliceblue;
-            border-radius: 10px;
-
-            .cat-speciale {
-                //Div delle categorie speciali 
-                display: flex;
-                align-items: center;
-                flex-direction: row;
-                justify-content: space-around;
-
-                .input-cont {
-                    display: flex;
-                    align-items: center;
-                    gap: 1vh;
-
-                    input {
-                        cursor: pointer;
-                    }
-                }
-            }
-
-            .gen {
-                // div che contiene la scelta delle generazioni
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 1rem;
-                gap: 5px;
-
-                #generazioni {
-                    border: #333 1px solid !important;
-                    width: 20%;
-                    border-radius: 5px;
-                    height: 1.5rem;
-                    display: block;
-                    cursor: pointer;
-
-                }
-
-            }
-
-            .cont-tipi {
-                display: flex;
-                flex-direction: row;
-                gap: 3vw;
-
-                .tipi {
-                    display: flex;
-                    flex-direction: column;
-                    padding: 0;
-                    gap: 1vh;
-                    list-style: none;
-                    width: 100%;
-
-                    .tipo {
-                        cursor: pointer;
-                        width: 100%;
-                        opacity: 0.6;
-                        color: white;
-                        font-size: 1rem;
-                        height: 4vh;
-                        border-radius: 5px;
-                                        }
-
-                    .tipo.selezionato {
-                        color: black;
-                        opacity: 1;
-                        border: #333 2px solid;
-                    }
-                }
-            }
-
-            .cerca {
-                cursor: pointer;
-                width: 50%;
-                height: 3vh;
-                border: #333 solid 1px;
-                height: 4vh;
-                border-radius: 5px;
-                align-self: center;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 1vh;
-                font-size: 1rem;
+        @media screen and (min-width:1024px) {
+            &:hover {
+                background-color: var(--secondario);
+                color: var(--title);
             }
         }
+
+    }
+
+    .mobile-button {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--secondario);
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        z-index: 1;
+
+        .filter-img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+        }
+
+        @media screen and (min-width:768px) {
+            display: none;
+        }
+
+    }
+
+    .filtro {
+
+        border: $border;
+        border-bottom: 0px;
+        position: fixed;
+        bottom: 0;
+        height: 80dvh;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        width: 100%;
+        background-color: #333;
+        transform: translateY(80dvh);
+        visibility: hidden;
+        transition: transform .3s ease, visibility 0s linear .3s;
+        overflow: hidden;
+        z-index: 9999;
+
+        &.open {
+            visibility: visible; // Aggiungi questo
+            transform: translateY(0px);
+            transition: transform .3s ease, visibility 0s linear 0s;
+        }
+
+        @media screen and (min-width:768px) {
+            height: 100vh;
+            width: 350px;
+            top: 0;
+            left: 0;
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 0;
+        }
+
+        h5 {
+            color: var(--title);
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .filter-header {
+            display: flex;
+            margin: auto;
+            margin-bottom: 15px;
+            padding: 15px;
+            width: 90%;
+            min-height: 10%;
+            align-items: center;
+            justify-content: space-between;
+
+            button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 800;
+                height: 30px;
+                width: 30px;
+                border-radius: 50%;
+                font-size: 24px;
+                background: transparent;
+                color: var(--text);
+            }
+        }
+
+        .filter-body {
+            // border: white 1px solid;
+            height: max-content;
+            margin: auto;
+            width: 100%;
+            height: calc(100% - 10% - 10%); // Lascia spazio per header e footer (circa 80% dell'altezza totale)
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding-bottom: 90px;
+
+            .ordinamento {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .orders {
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    gap: 10px;
+
+
+                    .order {
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+
+                        input[type="radio"] {
+                            width: 18px;
+                            height: 18px;
+
+                        }
+                    }
+                }
+            }
+
+            .types-filter,
+            .gen-filter {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+
+                .types-container,
+                .gen-container {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr;
+                    gap: 4px;
+
+                    .type,
+                    .gen {
+                        border-radius: 4px;
+                    }
+
+                    .gen {
+                        background-color: #444;
+                        color: #ccc;
+
+                        &.selezionato {
+                            background-color: #ccc;
+                            color: #444;
+                        }
+                    }
+
+
+                }
+            }
+        }
+
+        .filter-footer {
+            display: flex;
+            padding: 10px;
+            gap: 10px;
+            align-self: flex-end;
+            width: 100%;
+            position: absolute;
+            bottom: 10px;
+            min-height: 10%;
+            background-color: #333;
+
+            .applica {
+                flex: 2;
+                border-radius: 5px;
+                background: var(--secondario);
+                color: var(--title);
+            }
+
+            .reset {
+                flex: 1;
+                background: transparent;
+                border: 1px solid #666;
+                color: #ccc;
+                border-radius: 5px;
+                cursor: pointer;
+
+
+                &:hover {
+                    background: #444;
+                }
+            }
+        }
+
+
     }
 }

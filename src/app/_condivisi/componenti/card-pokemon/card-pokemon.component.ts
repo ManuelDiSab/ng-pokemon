@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ICard } from '../../../interface/ICard.interface';
 
 @Component({
@@ -7,9 +7,8 @@ import { ICard } from '../../../interface/ICard.interface';
     templateUrl: './card-pokemon.component.html',
     styleUrl: './card-pokemon.component.scss'
 })
-export class CardPokemonComponent {
+export class CardPokemonComponent{
     @Input('pokemon') pokemon!: ICard
-
     colori: { [key: string]: string } = {
         Normale: '#A8A77A',
         Fuoco: '#EE8130',
@@ -30,19 +29,16 @@ export class CardPokemonComponent {
         Acciaio: '#B7B7CE',
         Folletto: '#D685AD',
     };
+    getPokemonBackground(pokemon: ICard) {
+        const c1 = this.colori[pokemon.tipo1] ?? '#999';
+        const c2 = pokemon.tipo2
+            ? this.colori[pokemon.tipo2] ?? '#777'
+            : c1;
 
-    
-
-    getPokemonBackground(pokemon: any): { [key: string]: string } {
-        if (pokemon.tipo2) {
-            return {
-                'background-image': `linear-gradient(145deg, ${this.colori[pokemon.tipo1]} 20%, ${this.colori[pokemon.tipo2]} 100%)`
-                // 'background-image':`linear-gradient(to bottom,${this.colori[pokemon.tipo1]} 50%, ${this.colori[pokemon.tipo2]} 50%`
-            };
-        } else {
-            return {
-                'background-color': this.colori[pokemon.tipo1]
-            };
-        }
+        return {
+            'background-image': `linear-gradient(180deg, ${c1}40 0%, ${c2}80 100%)`,
+            'background-blend-mode': 'overlay'
+        };  
     }
 }
+

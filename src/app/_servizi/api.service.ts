@@ -16,14 +16,14 @@ export class ApiService {
 
     /**
      * Endpoint per ottenere la lista pokemon con possibilità di filtraggio
+     * con diverse query
      * @param query query per filtrare la lista
      * @returns Observable
      */
-    getPokemonList(query: HttpParams | null = null, pagina: number, dir: string): Observable<any> {
+    getPokemonList(query: HttpParams | null = null, pagina: number, sort: string = 'id', order: string = 'asc'): Observable<any> {
         // Se la query esiste la ggiungo all'url altrimenti utilizzo quello di base
-        const ordinamento = dir.split('-')
-        return !query ? this.http.get(`${this.apiUrl}/pokemon?sort=${ordinamento[0]}&order=${ordinamento[1]}&page=${pagina}`)
-            : this.http.get(`${this.apiUrl}/pokemon?sort=${ordinamento[0]}&order=${ordinamento[1]}&page=${pagina}`, { params: query })
+        return !query ? this.http.get(`${this.apiUrl}/pokemon?sort=${sort}&order=${order}&page=${pagina}`)
+            : this.http.get(`${this.apiUrl}/pokemon?sort=${sort}&order=${order}&page=${pagina}`, { params: query })
     }
 
     /**
@@ -51,7 +51,7 @@ export class ApiService {
         return this.http.get(`${this.pokeApiUrl}/pokemon-species/${nome}`)
     }
 
-    getAbilityDetails(abilita:string) {
+    getAbilityDetails(abilita: string) {
         return this.http.get(`${this.pokeApiUrl}/ability/${abilita}`)
     }
 
@@ -63,7 +63,6 @@ export class ApiService {
         return query ? this.http.get(`${this.apiUrl}/pokemon/${idPokemon}${query}`) : this.http.get(`${this.apiUrl}/pokemon/${idPokemon}`)
     }
 
-    
 
     getPokemonDaPokeApi(url: string) {
         return this.http.get(url)
@@ -72,12 +71,12 @@ export class ApiService {
     getSpeciePokemon(id: number) {
         return this.http.get(`${this.apiUrl}/pokemon/${id}`)
     }
-    
+
     getListaPokemonCompleta(): Observable<any> {
         return this.http.get(`${this.pokeApiUrl}/pokemon?limit=1025`);
     }
 
-    getGenerico(url:string): Observable <any>{
+    getGenerico(url: string): Observable<any> {
         return this.http.get(url)
     }
 }

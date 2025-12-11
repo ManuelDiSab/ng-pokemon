@@ -28,14 +28,9 @@
         </div>
     </section>
 
+    <hr>
 
-
-
-    <!-- Contenuto principale  -->
-    <section class="contenuto">
-
-        <ul class="menu" id="Menu" #menu>
-            <!-- Menu in alto per scorrere -->
+    <!-- <ul class="menu" id="Menu" #menu>
             <span class="label_menu">Vai a: </span>
             @for (item of voci; track $index) {
             <li (click)="scrollTo($index - 1)" [ngClass]="{'attivo': activeSection === item}">{{item}}</li>
@@ -52,9 +47,11 @@
                     {{item}}</button>
                 }
             </div>
-        </div>
+        </div> -->
 
 
+    <!-- Contenuto principale  -->
+    <section class="contenuto">
         <div class="descrizione" #sectionRef>
             <p>
                 <em>{{data.details.nome | titlecase }}</em> è un pokemon di tipo

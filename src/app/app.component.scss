@@ -2,6 +2,7 @@ main {
     font-family: 'roboto';
     height: fit-content;
     min-height: 100vh;
+    padding-top:90px ;
     // background-color: #181818; //scuro
 }
 
@@ -31,7 +32,6 @@ main {
     align-items: center;
     justify-content: center;
     z-index: 1000;
-
     .spinner-content {
         background: transparent;
         padding: 2rem;

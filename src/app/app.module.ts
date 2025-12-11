@@ -9,21 +9,21 @@ import { FooterComponent } from './_componenti/footer/footer.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UikitModule } from "./_condivisi/uikit/uikit.module";
-import { PaginaNonTrovataComponent } from './_pagine/pagina-non-trovata/pagina-non-trovata.component';
+import { NavbarComponent } from './_componenti/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
     FooterComponent,
-    PaginaNonTrovataComponent
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     UikitModule
-],
+  ],
   providers: [provideHttpClient(),
   provideAnimationsAsync(),
   ],

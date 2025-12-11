@@ -4,7 +4,7 @@
     border: #737373 1px solid;
     padding: 1rem;
     border-radius: 10px;
-    background-color: var.$bg-table;
+    background-color: var(--red-charizard);
 
     table {
         border-radius: 10px;
@@ -40,18 +40,19 @@
 
     td {
         font-weight: 800;
-        white-space:normal;
+        white-space: normal;
         word-wrap: break-word;
-        word-break:break-all;
+        word-break: break-all;
 
         span {
             padding-left: 5px;
         }
     }
 }
-@media(max-width:768px){
-    td{
-        span{
+
+@media(max-width:768px) {
+    td {
+        span {
             font-size: .875rem;
         }
     }

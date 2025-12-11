@@ -3,6 +3,22 @@
 @use 'bootstrap/scss/bootstrap';
 
 
+:root {
+    --bg-body: #1a1a1a;
+    --title: rgba(255, 255, 255, 0.9);
+    --text: rgba(255, 255, 255, 0.7);
+    --navbar-bg: #4141412f;
+    --navbar-bg-mobile: #2c2c2c2f;
+    --gold-title: #e0bf03;
+    --secondario: #ff4a4a;
+    --bg-generale: #4747474d;
+    --bg-table: rgba(255, 255, 255, 0.9);
+    --red-charizard: #FF1C1C;
+}
+
+ul {
+    padding: 0;
+}
 
 html {
     scroll-behavior: smooth;
@@ -18,7 +34,9 @@ html {
 }
 
 body {
-    background-color: rgba(255, 255, 255, 0.6); //chiaro
+    // background-color: rgba(255, 255, 255, 0.6); //chiaro
+    background-color: var(--bg-body);
+    overscroll-behavior-y: contain;
 }
 
 .modal-content {

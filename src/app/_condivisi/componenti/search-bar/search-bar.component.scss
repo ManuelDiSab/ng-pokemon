@@ -10,6 +10,7 @@
 
 .searchBar {
     display: flex;
+    flex-grow: 1;
     width: 100%;
     align-items: center;
     justify-content: center;
@@ -17,21 +18,24 @@
 
     .input_modal {
         width: 100%;
-        background-color: rgb(250, 250, 250);
+        background-color: rgb(65, 65, 65);
         padding: 3vw;
     }
 
     input {
-        height: 6vh;
-        background-color: rgb(255, 255, 255);
+        height: 45px;
+        background-color: rgb(65, 65, 65);
         border-radius: 1rem;
         font-family: 'Lato';
         // background-color: #282a2ea8; //chiaro
         border: #333 1px solid;
-        padding:0 1vw;
+        padding: 0 1vw;
         font-size: 1rem;
         font-weight: 600;
         outline: none;
+        width: 300px;
+        caret-color: #fff;
+        color: #f1eeee;
 
         &::placeholder {
             color: #696969;
@@ -40,6 +44,8 @@
         &:hover {
             cursor: auto;
         }
+
+
     }
 
     .cerca {
@@ -72,7 +78,7 @@
 
     .risultati {
         // Lista dei risultati della ricerca
-        width: 90%;
+        width: 100%;
         border: #333 1px solid;
         padding: 0;
         z-index: 999;
@@ -85,14 +91,14 @@
         .risultato {
             // Elemento singolo
             height: 6vh;
-            background-color: #ffffff;
-
+            background-color: #333;
+            
             &:hover {
                 background-color: #f1eeee;
             }
 
             a {
-                color: #333;
+                color: var(--title);
                 display: block;
                 text-decoration: none;
                 margin: auto;

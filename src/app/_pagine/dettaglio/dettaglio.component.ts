@@ -26,7 +26,7 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
         private title: Title, private metaService: Meta, private TR: TraduzioniService) {
         this.colori = this.UT.colori;
     }
-    
+
     /**
      * Le pokeApi hanno due endpoint per prendere i dettagli completi di un pokemon, v2/pokemon/{nome} e v2/pokemon-species/{nome}. 
      * Alcuni pokemon hanno una variazione al nome che non è corretta per uno dei due endpoint
@@ -39,8 +39,8 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
      */
     private cambioNomePokemon(nome: string): string {
         const sostituzioni: Record<string, string> = {
-            'urshifu-single-strike': 'urshifu', 'palafin': 'palafin-zero', 'urshifu':'urshifu-single-strike', 
-            'palafin-zero':'palafin'
+            'urshifu-single-strike': 'urshifu', 'palafin': 'palafin-zero', 'urshifu': 'urshifu-single-strike',
+            'palafin-zero': 'palafin'
         }
         return sostituzioni[nome] ?? nome
     }
@@ -147,6 +147,34 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
         )
     }
 
+    /**
+ * Genera la stringa CSS per la sfumatura di background in base ai tipi.
+ * @param type1 Il primo tipo del Pokémon.
+ * @param type2 Il secondo tipo del Pokémon (opzionale).
+ * @returns Una stringa CSS per la proprietà background-image.
+ */
+    getBackgroundGradient(type1: string, type2: string | null | undefined): string {
+        const color1 = this.colori[type1];
+        if (type2) {
+            // Pokémon con DUE tipi
+            const color2 = this.colori[type2];
+            if (color1 && color2) {
+                // Sfumatura lineare a 135 gradi (diagonale) tra i due colori
+                return `linear-gradient(135deg, ${color1} 0%, ${color2} 100%)`;
+            }
+        }
+        // Pokémon con UN solo tipo (o fallback in caso di colore mancante)
+        if (color1) {
+            // Sfumatura da colore1 a una tonalità più chiara di colore1 (o bianco/sfondo)
+            // Per uno sfondo scuro, sfumiamo verso un colore leggermente più chiaro per l'effetto di luce
+            // Ritorna una sfumatura radiale leggera come alternativa
+            // return `radial-gradient(circle at 99% 1%, ${color1} 0%, rgba(255, 255, 255, 0.1) 100%)`;
+            return color1
+        }
+
+        // Fallback: colore di sfondo predefinito
+        return 'var(--bg-default, #6c757d)';
+    }
     /**
      * Funzione per assegnare la sezione attiva giusta nel menu in alto
      * @returns 
@@ -288,21 +316,21 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
                     evolObs.push(
                         // In base all'endpoint delle v2/pokemon delle pokeApi devo usare urshifu-single-strike
                         this.api.getPokemonDetails(this.cambioNomePokemon(speciesName)).pipe(
-                                map((p: any) => ({
-                                    name: speciesName,
-                                    tipo1: this.TR.TraduciTipo(p.types[0].type.name),
-                                    tipo2: this.TR.TraduciTipo(p.types[1]?.type.name) ?? null,
-                                    stage, // numero dello stage evolutivo 
-                                    parent: parentName, // nome del genitore
-                                    item_sprite: itemSprite, // sprite dell'item da utilizzre
-                                    held_item_sprite: heldItemSprite, // sprite dell'item da tenere
-                                    sprite: p.sprites?.other?.home?.front_default
-                                        ?? p.sprites?.other?.['official-artwork']?.front_default
-                                        ?? p.sprites?.front_default,
-                                    conditions, // stringa contenente le definizioni della/e condizione/i per l'evoluzione
-                                    raw_details: detailsArr // prendo l'array grezzo dalle pokeApi
-                                })),
-                            )
+                            map((p: any) => ({
+                                name: speciesName,
+                                tipo1: this.TR.TraduciTipo(p.types[0].type.name),
+                                tipo2: this.TR.TraduciTipo(p.types[1]?.type.name) ?? null,
+                                stage, // numero dello stage evolutivo 
+                                parent: parentName, // nome del genitore
+                                item_sprite: itemSprite, // sprite dell'item da utilizzre
+                                held_item_sprite: heldItemSprite, // sprite dell'item da tenere
+                                sprite: p.sprites?.other?.home?.front_default
+                                    ?? p.sprites?.other?.['official-artwork']?.front_default
+                                    ?? p.sprites?.front_default,
+                                conditions, // stringa contenente le definizioni della/e condizione/i per l'evoluzione
+                                raw_details: detailsArr // prendo l'array grezzo dalle pokeApi
+                            })),
+                        )
                     );
                     // Ricorsione sui figli
                     (node.evolves_to ?? []).forEach((child: any) => traverse(child, stage + 1, speciesName));

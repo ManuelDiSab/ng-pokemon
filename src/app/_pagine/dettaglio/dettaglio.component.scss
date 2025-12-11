@@ -1,17 +1,18 @@
 @use '../../../stili/variabili'as var;
 
 * {
-    font-family: 'Roboto';
-
+    color: var(--text);
 }
-
+//##########    HEADER: Navigazione Precedente/Successivo e Titolo  ###################
 .header {
-    // Parte alta con tasto next e previous
     display: flex;
+    align-items: center;
     height: 10vh;
     margin: 5vh auto;
     gap: 1rem;
     width: 95vw;
+    max-width: 1300px;
+
     .next,
     .previous,
     .title {
@@ -20,107 +21,85 @@
         align-items: center;
         justify-content: center;
         height: 100%;
-        // border: 1px solid;
-        // background-color:var.$bg-table;
-        // border-radius: 10px;
 
-        h1 {
-            font-size: 2.2rem;
-        }
-
-        a {
-            display: block;
-            height: 100%;
+        .header-content {
+            /* Utilizzo della classe unificata dal tuo HTML */
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            color: #333;
+            color: var(--text);
+            /* Usa la variabile per il testo normale */
+            height: 100%;
+            gap: 0.5rem;
+            /* Spazio uniforme tra gli elementi nel link */
+            transition: color 0.2s, opacity 0.2s;
 
-            img {
-                height: 100%;
+            &:hover:not(h1) {
+                color: var(--secondario);
+                /* Colore principale al passaggio del mouse */
+                opacity: 0.8;
             }
+        }
 
-            .bi-arrow-right {
-                padding-left: 1vw;
-            }
-            .bi-arrow-left{
-                padding-right: 1rem;
-            }
+        h1 {
+            font-size: 2.2rem;
+            color: var(--title);
+            margin: 0;
+        }
+
+        img {
+            height: 80%;
+            /* Riduci l'immagine per stare nel contenitore */
+            object-fit: contain;
+        }
+
+        // Icone per le frecce (se usi font-icons come bootstrap icons)
+        .bi-arrow-left {
+            margin-right: 0.5rem;
+        }
+
+        .bi-arrow-right {
+            margin-left: 0.5rem;
+        }
+    }
+
+    // Stile specifico per i blocchi di navigazione, pulendo gli stili da <a>
+    .previous,
+    .next {
+        justify-content: flex-start;
+        /* Allineamento a sinistra per il 'previous' */
+
+        &.next {
+            justify-content: flex-end;
+            /* Allineamento a destra per il 'next' */
         }
     }
 }
 
+hr {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.404);
+    margin: 2rem 0;
+    width: 95%;
+    margin: auto;
+}
+
 .contenuto {
-    .page_menu_mobile {
-        display: none;
-
-    }
-
-    .menu {
-        margin: auto;
-        width: fit-content;
-        display: flex;
-        border-radius: 8px;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-        margin-top: 1rem;
-        background-color: rgba(255, 255, 255, 0.95);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        padding: 1rem;
-        position: sticky;
-        top: 0;
-        z-index: 10;
-
-        .label_menu {
-            font-weight: bold;
-            font-size: .875rem;
-        }
-
-        li {
-            list-style-type: none;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: transform 0.2s;
-            transform-origin: center;
-            will-change: transform;
-            backface-visibility: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            // color: rgba(255, 255, 255, 0.9);
-            background: rgba(167, 166, 166, 0.15);
-            border-radius: 16px;
-            padding: 0.5rem 1.2rem;
-            transition: background 0.2s;
-            font-weight: 600;
-            color: #333;
-
-            &:hover {
-                background: #eb361e;
-                color: rgba(255, 255, 255, 0.9);
-                transform: scale(1.05);
-            }
-        }
-
-        .attivo {
-            color: rgba(255, 255, 255, 0.9);
-            background: #f60505;
-        }
-    }
-
     .descrizione {
         padding-top: 5vh;
         margin: auto;
         width: 85%;
-        display: flex;
-        flex-direction: column;
-        align-content: center;
+        max-width: 900px;
 
         p {
             font-weight: 400;
             font-size: 1rem;
             margin-bottom: 1rem;
+        }
+
+        p.tipo {
+            font-weight: 600;
         }
     }
 
@@ -128,85 +107,84 @@
         display: flex;
         margin: auto;
         width: 90%;
+        max-width: 1300px;
         padding-top: 2rem;
 
-        .info-pokemon {
-            width: 60%;
-        }
-
         .left {
-            // flex: 1;
-            gap: 1rem;
+            width: 40%;
             padding: 1rem;
             display: flex;
-            width: 40%;
             justify-content: center;
-            align-items: center;
-
-            h5 {
-                font-weight: 800;
-                font-size: 1.2vw;
-
-                .n_pokedex {
-                    font-weight: 500;
-                    font-size: 1vw;
-                }
-            }
+            align-items:center;
 
             .cornice {
-                height: 70vh;
+                height: auto;
+                max-height: 70vh;
                 padding: 2rem;
                 display: flex;
+                flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 border-radius: 10px;
-                background-color: var.$bg-table;
+                background-color: rgba(255, 255, 255, 0.2);
                 border: #333333e0 1px solid;
-                flex-direction: column;
 
                 .pokemon_img {
                     width: 100%;
-                    height: 100%;
+                    height: auto;
+                    max-height: 100%;
                     object-fit: contain;
-                    background-color: #fff;
+                    background-color: transparent;
                     border-radius: 8px;
                 }
 
-
                 #verso {
-                    border: #333 solid 1px;
+                    border: 1px solid var(--border-color, #333);
                     border-radius: 10px;
                     text-decoration: none;
-                    max-width: 100%;
-                    display: block;
                     margin-top: 1rem;
-                    color: #333;
+                    margin-bottom: 1rem;
+                    color: var(--text);
                     font-weight: 600;
-                    background-color: rgba(255, 255, 255, 0.8);
+                    background-color: var(--bg-generale);
                     text-align: center;
-                    padding: 0 1rem;
-                }
+                    padding: 0.5rem 1.5rem;
+                    white-space: nowrap;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
 
+                    &:hover {
+                        background-color: var(--primary, #f60505);
+                        color: #fff;
+                    }
+                }
             }
         }
 
+        .info-pokemon {
+            width: 60%;
+            padding: 1rem;
+        }
     }
 }
 
 .seconda_parte {
     margin: auto;
-    width: 100%;
+    width: 95%;
+    max-width: 1300px;
 
     .sezione_dettagli {
         padding-top: 5vh;
         border-top: rgba(0, 0, 0, 0.2) solid 1px;
-        width: 95%;
+        width: 100%;
         margin: 5vh auto;
 
         .acc_title {
             font-size: 2rem;
             font-weight: 600;
             padding-bottom: 2rem;
+            color: var(--title);
         }
     }
 
@@ -214,8 +192,11 @@
 
 @media (max-width:768px) {
     .header {
+        flex-wrap: wrap;
         height: auto !important;
         min-height: 10vh !important;
+        margin: 2vh;
+
         img {
             display: none;
         }
@@ -226,8 +207,9 @@
     }
 
     .page_menu_mobile {
+        display: block;
         margin: 0 auto;
-        width: 60vw;
+        width: 80vw;
 
         #drop-d-menu-btn {
             display: block !important;
@@ -253,42 +235,76 @@
 
 
     .descrizione {
+        width: 90%;
+        padding-top: 3vh;
+
         p {
-            font-size: 1.5rem !important;
+            font-size: 1.1rem;
         }
     }
 
     .dettagli {
         flex-direction: column;
-        width: 100% !important;
-        .left {
-            width: 100% !important;
+        width: 95% !important;
+        padding-top: 1rem;
 
-            .cornice {
-                height: auto !important;
-            }
-        }
-
+        .left,
         .info-pokemon {
             width: 100% !important;
+            padding: 0.5rem;
+        }
+
+        .left {
+            .cornice {
+                max-height: none;
+                height: 50vh !important;
+
+                .pokemon_img {
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+    .seconda_parte .sezione_dettagli {
+        .acc_title {
+            font-size: 1rem;
         }
     }
 }
-@media(max-width:500px){
-    .header{
+
+@media(max-width:500px) {
+    .header {
         flex-direction: column;
-        gap:1rem;
-        justify-content: center;
-        .previous, .title, .next{
-            width: 95% !important;
+        gap: 0.5rem;
+
+        .previous,
+        .next {
+            flex: 0 0 100%;
+            justify-content: center;
+
+            .header-content {
+                color: var(--text);
+                text-decoration: underline;
+                font-weight: 500;
+                font-size: 1.25rem;
+            }
         }
-        .previous, .next{
-            font-size: 1.75rem;
-            color: #4d4c4c;
-            text-decoration: underline;
-            font-weight: 500;
+
+        .previous {
+            order: 1;
         }
-        h1{
+
+        .title {
+            order: 2;
+            margin-top: 0.5rem;
+        }
+
+        .next {
+            order: 3;
+        }
+
+        h1 {
             font-size: 2.5rem !important;
         }
     }

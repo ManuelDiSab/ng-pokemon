@@ -15,7 +15,7 @@
     }
 
     .vita_persa {
-        color: #333;
+        color: darkgray;
         animation: loseLife 0.6s forwards;
     }
 }
@@ -26,15 +26,15 @@
 }
 
 .timer-critico {
-    color: red;
+    color: var(--secondario);
     font-weight: bold;
     animation: pulse 1s infinite;
 }
 
 .reset {
     // ###  button di reset del gioco  #####
-    background-color: var.$rosso-charizard;
-    color: rgba(255, 255, 255, .8);
+    background-color: var(--secondario);
+    color:var(--title);
     font-size: 1.125rem;
     padding: 0.5rem 1rem;
     border-radius: 8px;
@@ -65,9 +65,8 @@
     }
 
     hr {
-        height: 1px;
-        color: black;
-        background-color: #333;
+        border-color: darkgray;
+        background-color:darkgray;
         width: 80%;
     }
 
@@ -83,13 +82,21 @@
 
 // ######  DESKTOP  #######
 .desktop {
+    color: var(--text);
     width:95%;
     padding: .75rem;
     border-radius: 8px;
-    border: #1f1e1e solid 1px;
-    background-color: var.$bg-table;
+    border: var(--text) solid 1px;
+    background-color: var(--bg-generale);
 
-    .colonna {
+    .reset{
+        transition: all .2s ease;
+        &:hover{
+            background-color: var(--red-charizard);
+        }
+    }
+
+    .colonna {  
         padding: 1rem;
         display: flex;
         flex-direction: column;
@@ -102,12 +109,12 @@
 
             .label {
                 font-weight: 800;
-                color: #222;
+                color: var(--title);
             }
 
             .value {
                 font-weight: 600;
-                color: #333;
+                color:var(--text);
             }
         }
     }

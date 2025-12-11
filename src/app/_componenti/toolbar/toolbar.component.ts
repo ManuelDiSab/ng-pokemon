@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
-
-export type VoiceMenu = {
-  link: string,
-  icon?: string,
-  name: string
-}
-
+import { VoiceMenu } from '../../_tipi/VoiceMenu.type';
 @Component({
   selector: 'toolbar',
   standalone: false,

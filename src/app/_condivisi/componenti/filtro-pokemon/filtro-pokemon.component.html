@@ -1,53 +1,73 @@
-<section class="filtro">
-    <button class="dropdown-filter" (click)="apri_filtro()">Ricerca avanzata <i
-            class="bi bi-caret-down-fill"></i></button>
-    <div class="lista-filtraggio" role="combobox" [style.display]="filtro_aperto ? 'block':'none'">
+<section class="filtri">
+    <button class="mobile-button" (click)="apri_filtro();$event.stopPropagation()">
+        <img src="/Filtro.svg" alt="Immagine di un filtro" class="filter-img">
+    </button>
+    <button class="filter-button" (click)="apri_filtro();$event.stopPropagation()">Ricerca avanzata</button>
 
-        <div class="filtro-tipi">
-
-            <div class="cat-speciale">
-                <div class="input-cont">
-                    <input type="checkbox" name="is_legendary" id="leggendario" title="mostra i pokemon leggendari" (change)="ricerca($event)">   
-                    <label for="leggendario">Solo leggendari</label>
-                </div>  
-
-                <div class="input-cont">
-                    <input type="checkbox" name="is_mythical" id="mitico" title="mostra i pokemon mitici" (change)="ricerca($event)">
-                    <label for="mitico">Solo misteriosi</label>
-                </div>
-            </div>
-
-            <div class="gen">
-                <label for="generazioni">Generazione:</label>
-                <select name="generazione" id="generazioni" (change)="selectGen($event)">
-                    <option value="" selected></option>
-                    @for (item of generazioni; track $index) {
-                    <option [value]="$index + 1">{{item}}</option>
-                    }
-                </select>
-            </div>
-
-            <div class="cont-tipi">
-                <ul class="tipi">
-                    @for (tipo of col_1_tipi; track $index) {
-                    <li>
-                        <button [value]="tipo" class="tipo" (click)="seleziona($event)"
-                            [ngStyle]="getBackground(tipo)">{{tipo}}</button>
-                    </li>
-                    }
-                </ul>
-                <ul class="tipi">
-                    @for (tipo of col_2_tipi; track $index) {
-                    <li>
-                        <button [value]="tipo" class="tipo" (click)="seleziona($event)"
-                            [ngStyle]="getBackground(tipo)">{{tipo}}</button>
-                    </li>
-                    }
-                </ul>
-            </div>
-
-            <button class="cerca" (click)="ApplicaFiltri()">cerca<i class="bi bi-search"></i></button>
+    <div class="filtro" [class.open]="filtro_aperto" #filter [formGroup]="filtroForm">
+        <div class="filter-header">
+            <h5>Filtri</h5>
+            <button (click)="chiudiFiltro()">x</button>
         </div>
+        <div class="filter-body">
+            <my-accordion>
+                <ng-template accordion-item="Tipi">
+                    <div class="types-filter">
+                        <div class="types-container">
+                            @for (tipo of tipi$ | async; track $index) {
+                            <button type="button" class="type" [class.selezionato]="isTipoSelected(tipo)"
+                                (click)="toggleTipo(tipo)" [ngStyle]="getStyle(tipo, isTipoSelected(tipo))">
+                                {{tipo}}
+                            </button>
+                            }
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template accordion-item="Ordina per">
+                    <div class="ordinamento">
+                        <div class="orders">
+                            @for (item of opzioniOrdinamento; track $index) {
+                            <label class="order">
+                                <input type="radio" formControlName="ordinamento" [value]="item.value">
+                                {{item.label}}
+                            </label>
+                            }
+                        </div>
+                    </div>
+                </ng-template>
 
+                <ng-template accordion-item="Generazioni">
+                    <div class="gen-filter">
+                        <div class="gen-container">
+                            @for (gen of generazioni$ | async; track $index) {
+                            <button type="button" class="gen selezionato" (click)="toggleGen(gen.idGen)"
+                                [class.selezionato]="isGenSelected(gen.idGen)">{{gen.nome}}</button>
+                            }
+                        </div>
+                    </div>
+                </ng-template>
+
+                <ng-template accordion-item="Rarità">
+                    <div class="ordinamento">
+                        <div class="orders">
+                            @for (item of opzioniRarita; track $index) {
+                            <label class="order">
+                                <input type="radio" formControlName="rarita" [value]="item.formControlName">
+                                {{item.label}}
+                            </label>
+                            }
+                        </div>
+                    </div>
+                </ng-template>
+            </my-accordion>
+        </div>
+        <div class="filter-footer">
+            <button class="reset" type="button" (click)="resetFiltri()">Reset</button>
+            <button class="applica" (click)="ApplicaFiltri()">Applica filtri</button>
+        </div>
     </div>
 </section>
+
+@if(filtro_aperto){
+<div class="overlay"></div>
+}

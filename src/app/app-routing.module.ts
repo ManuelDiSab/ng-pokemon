@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PaginaNonTrovataComponent } from './_pagine/pagina-non-trovata/pagina-non-trovata.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'pokedex', pathMatch:'full' },
@@ -8,7 +7,7 @@ const routes: Routes = [
   { path: 'pokedex', loadChildren: () => import('./_pagine/pokedex/pokedex.module').then(m => m.PokedexModule) },
   { path: 'pokedex/:pokemon', loadChildren: () => import('./_pagine/dettaglio/dettaglio.module').then(m => m.DettaglioModule) },
   { path: 'quiz', loadChildren: () => import('./_pagine/quiz/quiz.module').then(m => m.QuizModule) },
-  { path: '**', component: PaginaNonTrovataComponent }
+  { path: '**', loadComponent:() => import('./_pagine/pagina-non-trovata/pagina-non-trovata.component').then(c => c.PaginaNonTrovataComponent ) }
 ];
 
 @NgModule({

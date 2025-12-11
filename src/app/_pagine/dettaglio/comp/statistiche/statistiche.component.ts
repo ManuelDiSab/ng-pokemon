@@ -13,7 +13,6 @@ import { forkJoin } from 'rxjs';
 })
 export class StatisticheComponent {
     @Input() stats: stats[] = [];
-
     url1: string = ''
     url2: string = ''
     constructor(private api: ApiService) {

@@ -1,0 +1,13 @@
+<div class="accordion">
+    @for (item of items; track $index) {
+    <div class="accordion-header" [class.collapsed]="!item.open" (click)="toggle(item)">
+        <h5>{{item.title}}</h5>
+        <span class="chevron"></span>
+    </div>
+    <div class="accordion-collapse" [class.show]="item.open">
+        <div class="accordion-body">
+            <ng-container [ngTemplateOutlet]="item.template"></ng-container>
+        </div>
+    </div>
+    }
+</div>

@@ -11,10 +11,11 @@
 .section {
     padding: 1.5rem;
     text-align: center;
-    font-size: 1.5vh;
-    background-color: var.$rosso-charizard ;
+    font-size: 1.8vh;
+    background-color: var(--navbar-bg) ;
     // background-color: #333;
     color: #fff;
+    border-top: 1px solid #414141;
     .contatti {
         margin-bottom: 0.5vh;
         ul {

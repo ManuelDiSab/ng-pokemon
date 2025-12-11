@@ -1,0 +1,85 @@
+$border:#5555559d 1px solid;
+
+.accordion {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .accordion-header {
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 95%;
+        margin: auto;
+        padding: 0 10px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        user-select: none;
+
+        @media screen and (min-width:1024px) {
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+        }
+
+        h5 {
+            color: var(--title);
+            margin: 0;
+        }
+
+        .chevron {
+            display: block;
+            width: 8px;
+            height: 8px;
+            border-right: 2px solid rgb(255, 255, 255);
+            border-bottom: 2px solid rgb(255, 255, 255);
+            transform: rotate(45deg);
+            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        &:not(.collapsed) {
+            .chevron {
+                transform: rotate(-135deg);
+            }
+        }
+    }
+
+    .accordion-collapse {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.3s ease-out; // Anima la griglia  
+        border-bottom: #5555559d 1px solid;
+        width: 95%;
+        margin: auto;
+
+        &.show {
+            grid-template-rows: 1fr; // Altezza automatica piena
+            height: auto;
+
+            .accordion-body {
+                visibility: visible;
+            }
+        }
+
+        .accordion-body {
+            visibility: hidden;
+            overflow: hidden;
+            color: rgba(255, 255, 255, 0.8);
+            // Il padding va QUI dentro, non su .accordion-collapse
+            // Altrimenti il padding resta visibile anche da chiuso
+            padding: 0 10px;
+            margin-bottom: 5px;
+
+            // Un piccolo padding verticale extra solo quando è aperto per staccare dal bordo
+            &>* {
+                padding: 15px 0;
+            }
+
+            .ciccia {
+                background: #fff;
+            }
+        }
+    }
+}

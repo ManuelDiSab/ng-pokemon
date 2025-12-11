@@ -18,7 +18,7 @@
     <ul class="risultati" #risultati *ngIf="ulAperta">
         @for (item of suggestioni; track $index) {
         <li class="risultato">
-            <a href="#" [routerLink]="'/pokedex/'+ item">{{item | titlecase}}</a>
+            <a href="#" [routerLink]="'/pokedex/'+ item" (click)="ulAperta =false">{{item | titlecase}}</a>
         </li>
         }
     </ul>

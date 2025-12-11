@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VersioniComponent } from './versioni.component';
+import { AccordionComponent } from './accordion.component';
 
-describe('VersioniComponent', () => {
-  let component: VersioniComponent;
-  let fixture: ComponentFixture<VersioniComponent>;
+describe('AccordionComponent', () => {
+  let component: AccordionComponent;
+  let fixture: ComponentFixture<AccordionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [VersioniComponent]
+      declarations: [AccordionComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(VersioniComponent);
+    fixture = TestBed.createComponent(AccordionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

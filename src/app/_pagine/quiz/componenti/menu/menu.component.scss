@@ -10,14 +10,14 @@
 
     h1 {
         font-weight: 600;
+        font-size: 1.25rem;
     }
 
     .menu_button {
         border-radius: 6px;
-        border: #1f1e1e 1px solid;
-        background-color: transparent;
-        flex: 1;
-        max-width: 130px;
+        background-color:var(--text);
+
+        width: 80px;
     }
 }
 
@@ -36,37 +36,38 @@
         padding-bottom: 5vh;
         h1{
             text-align: center;
+            font-size:1.5rem;
         }
         .menu {
             text-align: center;
-            border-right: #1f1e1e 1px solid;
+            border-right:var(--text) 1px solid;
 
             .titolino {
-                color: #1f1e1e;
+                color:var(--text);
                 text-align: center;
             }
 
             .lista_btn {
                 margin: auto;
-                width: 50%;
-
+                width: 50%; 
+                gap: 2px;
                 .btn_item {
                     background-color: transparent;
-                    border: var.$rosso-charizard 1px solid;
+                    border: var(--secondario) 1px solid;
                     padding: .2rem;
 
                     button {
                         display: block;
                         height: 100%;
                         width: 100%;
-                        color: #2c3e50;
+                        color: var(--title);
                         font-weight: 600;
                     }
                 }
             }
 
             .attiva {
-                background-color: var.$rosso-charizard !important;
+                background-color: var(--secondario) !important;
 
                 button {
                     color: rgba(255, 255, 255, .8) !important;
