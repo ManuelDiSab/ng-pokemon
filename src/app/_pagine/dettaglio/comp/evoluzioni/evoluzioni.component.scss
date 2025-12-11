@@ -10,8 +10,7 @@
     align-items: center;
     justify-content: center;
     margin: auto;
-    box-shadow: var.$box_shadow-table;
-    background-color: var(--bg-table);
+    background-color: transparent;
     // permette lo scroll orizzontale se la catena è larga
 
     .tree {
@@ -51,7 +50,7 @@
                 text-decoration: none;
                 font-size: 1.15rem;
                 font-weight: 600;
-                color: #333;
+                color: var(--title);
                 padding: 10px 0;
             }
 
@@ -107,7 +106,7 @@
                 font-size: 0.78rem;
                 text-align: center;
                 max-width: 140px;
-                color: #333;
+                color: var(--text);
             }
 
             .condizioni .item {

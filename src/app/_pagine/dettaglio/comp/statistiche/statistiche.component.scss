@@ -10,10 +10,14 @@
         border: #737373 1px solid;
         padding: 1rem;
         border-radius: 10px;
-        background-color:var(--red-charizard);
+        // background-color:var(--secondario);
+        background: lightblue;
         table{
             border-radius: 10px;
             overflow: hidden;
+        }
+        p{
+            color:#333;
         }
     }
 
@@ -38,15 +42,16 @@
             }
             tbody {
                 tr {
+                    font-weight: 600;
                     th {
                         text-align: end;
                     }   
                     .nome_stat{
-                        color: #737373;
+                        color: #5f5f5f;
                     }
                     td {
                         width: 10%;
-                        font-size: .8rem;
+                        font-size: .9rem;
                         .barra {
                             height: 2vh;
                             margin: auto 0;
