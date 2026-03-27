@@ -93,7 +93,7 @@ export class FiltroPokemonComponent implements OnInit {
         }
     }
     /**
-     * Controllo se un tip oè selezionato ( per l'HTML)
+     * Controllo se un tipo è selezionato ( per l'HTML)
      * @param tipo string
      */
     isTipoSelected(tipo: string): boolean {
@@ -130,7 +130,7 @@ export class FiltroPokemonComponent implements OnInit {
         // Gestione array tipi: aggiunge param multipli (es: types=fire&types=water)
         const typesArray = this.filtroForm.get('tipo') as FormArray;
         typesArray.controls.forEach(ctrl => {
-            params = params.append('tipo', ctrl.value);
+            params = params.append('types',this.TR.TraduciTipo(null, ctrl.value ));
         });
         this.FiltriApllicati.emit(params)
         this.filtro_aperto = false
