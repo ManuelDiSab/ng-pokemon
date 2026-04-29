@@ -1,4 +1,4 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, } from '@angular/core';
 import { ApiService } from '../../_servizi/api.service';
 import { Meta, Title } from '@angular/platform-browser';
 import { ICard } from '../../interface/ICard.interface';
@@ -8,6 +8,7 @@ import { HttpParams } from '@angular/common/http';
 import { PokemonService } from '../../_servizi/pokemon.service';
 import { ActivatedRoute } from '@angular/router';
 import { TraduzioniService } from '../../_servizi/traduzioni.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-pokedex',
@@ -25,7 +26,7 @@ export class PokedexComponent implements OnInit {
     query: HttpParams = new HttpParams()
     // Paginazione
     current_page: number = 1
-    last_page: number = this.current_page--
+    last_page: number = 1
     // Array di nomi totali dei Pokémon disponibili (per autocomplete o filtri)
     nomi_totali_pokemon: string[] = []
     // Lista principale dei Pokémon caricati
@@ -39,7 +40,7 @@ export class PokedexComponent implements OnInit {
     noPage_message: string = ''
     // Ordinamento predefinito
     ordine: string = 'id-asc'
-
+    private destroyRef = inject(DestroyRef)
     constructor(
         private api: ApiService,              // Servizio per chiamate API
         private titleService: Title,          // Servizio per aggiornare il titolo della pagina
@@ -52,13 +53,13 @@ export class PokedexComponent implements OnInit {
 
     ngOnInit(): void {
         // Sottoscrizione all’Observable dei nomi dei Pokémon
-        this.PS.nomiPokemon$.subscribe(lista => {
+        this.PS.nomiPokemon$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(lista => {
             this.nomi_totali_pokemon = lista;
         });
 
         // Sottoscrizione ai queryParams della route
         // Permette di leggere la ricerca o i filtri dall’URL
-        this.route.queryParams.subscribe(params => {
+        this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
             if (params['nome']) {
                 // Se esiste la query "nome", la imposto nei parametri
                 this.query = new HttpParams().set('nome', params['nome']);

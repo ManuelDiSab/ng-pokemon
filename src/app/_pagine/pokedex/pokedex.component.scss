@@ -1,4 +1,4 @@
-@use '../../../stili/variabili'as var;
+@use '../../../styles/variables' as var;
 
 .principale {
     //SECTION principale
@@ -133,7 +133,7 @@
         bottom: 20px;
         right: 20px;
         z-index: 1000;
-        background-color: var.$blu-megaball;
+        background-color: var.$blue-megaball;
         color: #2c3e50;
         border: none;
         border-radius: 50%;

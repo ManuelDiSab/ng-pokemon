@@ -1,4 +1,4 @@
-@use '../../../stili/variabili' as var;
+@use '../../../styles/variables' as var;
 .policy {
     color: #fff;
 
@@ -16,7 +16,7 @@
     // background-color: #333;
     color: #fff;
     border-top: 1px solid #414141;
-    .contatti {
+    .contacts {
         margin-bottom: 0.5vh;
         ul {
             padding: 0;
@@ -37,7 +37,7 @@
 }
 
 @media(max-width:768px) {
-    .contatti {
+    .contacts {
         text-align: center;
 
         ul {
@@ -46,7 +46,7 @@
             li {
                 font-size: 2rem;
 
-                .nome {
+                .name {
                     display: none;
                 }
             }

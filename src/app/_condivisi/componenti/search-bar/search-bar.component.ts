@@ -5,7 +5,7 @@ import { HttpParams } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { Router } from '@angular/router';
-type versione_type = 'normale' | 'compatta' | 'modal'
+type version_type = 'normal' | 'compact' | 'modal'
 
 @Component({
     selector: 'search-bar',
@@ -15,12 +15,11 @@ type versione_type = 'normale' | 'compatta' | 'modal'
 })
 export class SearchBarComponent implements OnInit {
     suggestioni: string[] = []
-    ulAperta: boolean = false
+    ulOpen: boolean = false
     query: HttpParams = new HttpParams()
     private modalService = inject(NgbModal)
-    @Input('versione') versione!: versione_type
-    @Input('button') button!:boolean
-    @ViewChild('risultati') risultati!: ElementRef
+    @Input('version') version!: version_type
+    @ViewChild('result-list') resultList!: ElementRef
     @ViewChild('input') input!: ElementRef
     InputRicerca$ = new Subject<string>()
     constructor(private PS: PokemonService, private UT: UtilityService, private router: Router) {
@@ -40,10 +39,10 @@ export class SearchBarComponent implements OnInit {
 
     @HostListener('document:click', ['$event'])
     SUlClickFuori(event: MouseEvent) {
-        const clickUl = this.risultati?.nativeElement.contains(event.target)
+        const clickUl = this.resultList?.nativeElement.contains(event.target)
         const clickIniput = this.input?.nativeElement.contains(event.target)
         if (!clickIniput && !clickUl) {
-            this.ulAperta = false
+            this.ulOpen = false
         }
 
     }
@@ -62,7 +61,7 @@ export class SearchBarComponent implements OnInit {
         // navigo verso Pokedex con queryParams
         this.router.navigate(['/pokedex'], { queryParams: queryObj });
         
-        this.ulAperta = false;
+        this.ulOpen = false;
     }
     onSearch(input: string) {
         this.InputRicerca$.next(input)

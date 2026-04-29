@@ -1,5 +1,5 @@
-@use '../../../stili/variabili'as var;
-@use '../../../stili/animazioni';
+@use '../../../styles/variables' as var;
+@use '../../../styles/animations';
 
 .gioco.keyboard-open {
     height: 100dvh; // blocca l'altezza a viewport reale
@@ -47,7 +47,7 @@
             font-size: 2rem;
             margin: auto;
             padding: .5rem 1rem;
-            background-color: var.$blu-megaball;
+            background-color: var.$blue-megaball;
             color: rgba(255, 255, 255, .9);
             border-radius: 5px;
         }
@@ -136,7 +136,7 @@
 
                 .skip {
                     width: 20%;
-                    background-color: var.$giallo-pikachu;
+                    background-color: var.$yellow-pikachu;
                     font-size: 1.125rem;
                     padding: 0.5rem 1rem;
                     border-radius: 8px;

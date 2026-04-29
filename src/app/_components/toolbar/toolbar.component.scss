@@ -1,4 +1,4 @@
-        @use '../../../stili/variabili'as var;
+        @use '../../../styles/variables'as var;
 
         .navbar {
             width: 100%;
@@ -6,7 +6,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 0rem 0.8rem;
-            background-color: var.$rosso-charizard;
+            background-color: var.$charizard-red;
             height: 10vh;
 
             .menu-part {
@@ -18,14 +18,14 @@
                     height: 100%;
                 }
 
-                .lista-voci {
+                .voices-list {
                     list-style: none;
                     display: flex;
                     height: 100%;
                     gap: 1rem;
                     padding: 0;
 
-                    .voce-menu {
+                    .menu-voice {
                         flex: 1;
                         display: flex;
                         height: 100%;
@@ -35,7 +35,7 @@
 
                             @media (hover:hover) and (pointer:fine) {
 
-                                // Faccio funzionare l'hover solo su desktop
+                                // EN: The hover wokrs only on desktop devices IT:L'hover funziona solo su desktop
                                 .link-voce {
                                     color: #fff;
 
@@ -62,7 +62,7 @@
                             &::after {
                                 content: '';
                                 position: absolute;
-                                bottom: -1px; // Subito sotto la base della navbar
+                                bottom: -1px;
                                 left: 0;
                                 border-radius: 10px;
                                 width: 0%;
@@ -83,13 +83,13 @@
                         }
                     }
 
-                    .ricerca_in_menu {
+                    .menu-search {
                         display: none;
                     }
                 }
             }
 
-            .ricerca {
+            .research {
                 display: flex;
                 align-items: center;
                 justify-content: end;
@@ -117,7 +117,7 @@
                             }
                         }
 
-                        .ricerca_in_menu {
+                        .menu-search {
                             margin: auto;
                             display: block !important;
                         }
@@ -125,7 +125,7 @@
                 }
 
                 .logo,
-                .ricerca {
+                .research {
                     display: none;
                 }
             }

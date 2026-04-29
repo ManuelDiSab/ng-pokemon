@@ -4,7 +4,7 @@
         <!-- LOGO -->
         <div class="logo-container">
             <a routerLink="/">
-                <img src="/logo.png" alt="logo Gotta Catch" class="logo">
+                <img src="/logo.png" alt="Gotta Catch logo" class="logo">
             </a>
         </div>
 
@@ -18,13 +18,13 @@
             </li>
             }
             <div class="search-container">
-                <search-bar versione="normale"></search-bar>
+                <search-bar version="normal"></search-bar>
             </div>
         </ul>
 
         <div class="mobile-container">
-            <search-bar versione="modal" (click)="closeMenu()"></search-bar>
-            <!-- HAMBURGER (solo su dispositivi mobile ) -->
+            <search-bar version="modal" (click)="closeMenu()"></search-bar>
+            <!--  IT: HAMBURGER (solo su dispositivi mobile ) | EN: Only in mobile devices -->
             <div class="hamburger mobile" [class.open]="menuOpen" (click)="toggleMenu()">
                 <span></span><span></span><span></span>
             </div>

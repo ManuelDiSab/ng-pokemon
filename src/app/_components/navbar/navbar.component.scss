@@ -18,8 +18,8 @@
     background-color: var(--navbar-bg-mobile);
     backdrop-filter: blur(15px);
     position: relative;
-    
-    /* Soft golden glow for the nabvar*/
+
+    /*IT: leggero bagliore dorato per la navbar | EN: Soft golden glow for the nabvar*/
     &::before {
         content: "";
         position: absolute;
@@ -137,7 +137,7 @@
     pointer-events: none;
     transform: translateY(-15px);
     transition: opacity .35s ease, transform .25s ease;
-    
+
     &.open {
         opacity: 1;
         transform: translateY(0);
@@ -149,7 +149,6 @@
         font-size: 1.25rem;
         text-decoration: none;
         padding-bottom: 5px;
-        // border-bottom: 1px solid rgba(255, 255, 255, .15);
         transition: .2s ease;
 
         &:hover {
@@ -157,11 +156,11 @@
         }
     }
 }
-
-/* Overlay for toauching outside the menu and not be redirected somewhere (like touching one of the pokemon cards ) */
-.overlay {
+/** IT: Sovrapposizione per toccare al di fuori del menu senza essere reindirizzati altrove (come toccare una delle carte Pokémon).
+    EN: Overlay for toauching outside the menu and not be redirected somewhere (like touching one of the pokemon cards ) */
+    .overlay {
     position: fixed;
-    height:100%;
+    height: 100%;
     width: 100%;
     background: transparent;
     z-index: 1;
@@ -173,7 +172,6 @@
     .navbar {
         border: 1px solid #e9e9e91a;
         margin: auto;
-        // backdrop-filter: blur(3px);
     }
 
     .mobile-container {

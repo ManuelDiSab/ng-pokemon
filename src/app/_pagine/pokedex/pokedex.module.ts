@@ -12,7 +12,7 @@ import { UikitModule } from '../../_condivisi/uikit/uikit.module';
   imports: [
     CommonModule,
     PokedexRoutingModule,
-    UikitModule,
-  ]
+    UikitModule
+    ]
 })
 export class PokedexModule { }

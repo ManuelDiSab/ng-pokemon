@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, finalize, map, of, tap } from 'rxjs';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class PokemonService {
     public nomiPokemon$ = this.nomiPokemonSubject.asObservable()
 
     private caricato: boolean = false
-
+    
     constructor(private api: ApiService) { }
 
     caricaNomiPokemon(): void {
@@ -20,8 +20,10 @@ export class PokemonService {
             tap((x: any) => {
                 const nomi = x.results.map( (a:{name:string, url:string}) => a.name.toLowerCase())
                 this.nomiPokemonSubject.next(nomi),
-                this.caricato = true
+                this.caricato = true,
+                console.log('Dati presi')
             }),
+            finalize(() => console.log('Finalize')),
             catchError(err => {
                 console.error(err)
                 return of([])

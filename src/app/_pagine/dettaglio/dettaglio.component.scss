@@ -1,4 +1,4 @@
-@use '../../../stili/variabili'as var;
+@use '../../../styles/variables' as var;
 
 * {
     color: var(--text);
@@ -218,7 +218,7 @@ hr {
             font-size: 1.2rem;
             min-height: 6vh;
             border-radius: 5px;
-            background-color: var.$giallo-pikachu;
+            background-color: var.$yellow-pikachu;
         }
 
         .drop-d-menu {

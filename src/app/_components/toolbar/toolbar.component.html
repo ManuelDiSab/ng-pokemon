@@ -6,24 +6,23 @@
     </div>
 
     <div class="menu-part">
-        <ul class="lista-voci ">
+        <ul class="voices-list">
             @for (voce of voci; track $index)
             {
-            <li class="voce-menu">
+            <li class="menu-voice">
                 <a [routerLink]="voce.link" class="link-voce" routerLinkActive="active"
                     [routerLinkActiveOptions]="{exact: voce.link !== ''}">{{voce.name}}
                 </a>
             </li>
             }
-            <li class="ricerca_in_menu">
+            <li class="menu-search">
                 <search-bar versione="modal"></search-bar>
             </li>
         </ul>
 
     </div>
 
-    <div class="ricerca menu-part">
-        <!-- <button class="accedi">ACCEDI <i class="bi bi-box-arrow-in-right"></i></button> -->
-        <search-bar versione="normale"></search-bar>
+    <div class="reserach menu-part">
+        <search-bar versione="normal"></search-bar>
     </div>
 </nav>

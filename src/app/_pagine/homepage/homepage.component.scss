@@ -1,4 +1,4 @@
-@use '../../../stili/variabili'as var;
+@use '../../../styles/variables' as var;
 
 :host {
     display: flex;
@@ -28,7 +28,7 @@
                 color:var(--title); //chiaro
 
                 b {
-                    color: var.$rosso-charizard;
+                    color: var.$charizard-red;
                 }
             }
 
@@ -58,7 +58,7 @@
                     border: 0px;
                     font-size: 1.2rem;
                     font-weight: bold;
-                    background-color: var.$rosso-charizard;
+                    background-color: var.$charizard-red;
                     color: #fff;
                     width: 50%;
                     padding: 1rem;

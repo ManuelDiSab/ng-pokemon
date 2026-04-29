@@ -1,4 +1,4 @@
-<section class="principale"><!-- ###  CONTENUTO DELLA PAGINA  #####-->
+<section class="principale"><!-- ### EN:PAGE CONTENT | IT:CONTENUTO DELLA PAGINA  #####-->
     @if (this.noPage_message !== '') {
     <div class="alert">
         <p>
@@ -16,20 +16,19 @@
         <div class="card-list" role="list" #container>
             @switch (pokemonFiltrati.length > 0) {
             @case(true){
-            @for (pokemon of pokemonFiltrati; track $index) {
+            @for (pokemon of pokemonFiltrati; track pokemon.id) {
             <card-pokemon [pokemon]="pokemon"></card-pokemon>
             }
             }
             @case(false){
-            @for (pokemon of pokemonList; track $index) {
+            @for (pokemon of pokemonList; track pokemon.id) {
             <card-pokemon [pokemon]="pokemon"></card-pokemon>
             }
             }
             }
         </div>
-        <button class="carica" (click)="caricaPokemon()" [disabled]="loading"
-            *ngIf="pokemonFiltrati.length === 0"><span>Carica
-                altri pokemon </span></button>
+        @if (pokemonFiltrati.length === 0) {}
+        <button class="carica" (click)="caricaPokemon()" [disabled]="loading"><span>Carica altri pokemon </span></button>
     </div>
     <button class="scroll-top" (click)="scrollToTop()">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#F3F3F3">
