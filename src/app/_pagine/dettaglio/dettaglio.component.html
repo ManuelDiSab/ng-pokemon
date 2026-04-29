@@ -1,5 +1,3 @@
-<!-- uso *ngIf con 'as data' per sottoscrivere l'observable una sola volta
-e usare i dati in modo sicuro solo quando sono pronti -->
 @if (pokemonData$ | async; as data) {
   <section class="header">
     <!-- Pokémon Precedente -->
@@ -26,23 +24,6 @@ e usare i dati in modo sicuro solo quando sono pronti -->
     </div>
   </section>
   <hr>
-    <!-- <ul class="menu" id="Menu" #menu>
-    <span class="label_menu">Vai a: </span>
-    @for (item of voci; track $index) {
-      <li (click)="scrollTo($index - 1)" [ngClass]="{'attivo': activeSection === item}">{{item}}</li>
-    }
-  </ul>
-  <div ngbDropdown class="page_menu_mobile">
-    <button type="button" id="drop-d-menu-btn" ngbDropdownToggle>
-      Vai a...
-    </button>
-    <div ngbDropdownMenu class="drop-d-menu" aria-labelledby="drop-d-menu-btn">
-      @for (item of voci; track $index) {
-        <button (click)="scrollTo($index - 1)" ngbDropdownItem [ngClass]="{'attivo': activeSection === item}">
-        {{item}}</button>
-      }
-    </div>
-  </div> -->
   <!-- Contenuto principale  -->
   <section class="contenuto">
     <div class="descrizione" #sectionRef>
@@ -61,7 +42,7 @@ e usare i dati in modo sicuro solo quando sono pronti -->
       <div class="dettagli"><!-- Contenitore principale con flexbox -->
         <!-- #####  PARTE SINISTRA CON L'IMMAGINE ############################-->
         <div class="left">
-          <div class="cornice">
+          <div class="cornice" [ngStyle]="getPokemonBackground(data.details)">
             <img [src]="data.details.sprite" class="pokemon_img" [alt]="'Immagine di ' + data.details.nome"
               loading="lazy">
               <a href="javascript:void(0)" id="verso" (click)="versoPokemon(data.details?.verso)">

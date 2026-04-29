@@ -1,12 +1,14 @@
-import { AfterViewInit, Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { AfterViewInit, Component, DestroyRef, ElementRef, HostListener, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../_servizi/api.service';
-import { catchError, forkJoin, map, Observable, of, pipe, shareReplay, switchMap, tap } from 'rxjs';
+import { catchError, EMPTY, forkJoin, map, Observable, of, shareReplay, switchMap } from 'rxjs';
 import { ConnectionService } from '../../_servizi/connection.service';
 import { UtilityService } from '../../_servizi/utility.service';
 import { Meta, Title } from '@angular/platform-browser';
 import { TitleCasePipe } from '@angular/common';
 import { TraduzioniService } from '../../_servizi/traduzioni.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ICard } from '../../interface/ICard.interface';
 type VociMenu = 'Dettagli' | 'Statistiche' | 'Debolezze' | 'Evoluzioni' | 'Galleria'
 
 @Component({
@@ -15,7 +17,7 @@ type VociMenu = 'Dettagli' | 'Statistiche' | 'Debolezze' | 'Evoluzioni' | 'Galle
     templateUrl: './dettaglio.component.html',
     styleUrl: './dettaglio.component.scss'
 })
-export class DettaglioComponent implements OnInit, AfterViewInit {
+export class DettaglioComponent implements OnInit {
     private verso!: HTMLAudioElement
     pokemonData$!: Observable<any>
     activeSection: string = '';
@@ -23,7 +25,7 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
     colori: any;
     voci: VociMenu[] = ['Dettagli', 'Statistiche', 'Debolezze', 'Evoluzioni'];
     constructor(private route: ActivatedRoute, private api: ApiService, private CO: ConnectionService, public UT: UtilityService,
-        private title: Title, private metaService: Meta, private TR: TraduzioniService) {
+        private title: Title, private metaService: Meta, private TR: TraduzioniService, private router: Router) {
         this.colori = this.UT.colori;
     }
 
@@ -34,8 +36,8 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
      * con la sua variante corretta SE presente nella variabile chiamata sostituzioni
      * (Potrebbero esserci altri pokemon che hanno bisogno di una variante o di essere modificati. 
      * Quelli in sosdtituzioni sono quelli in cui mi sono imbattuto personalmente. )
-     * @param nome nome del pokemon da verificare
-     * @returns nome del pokemon corretto
+     * @param nome nome del pokemon da verificare | pokemon name to verify
+     * @returns nome del pokemon corretto | the correct name of the pokemon
      */
     private cambioNomePokemon(nome: string): string {
         const sostituzioni: Record<string, string> = {
@@ -45,14 +47,6 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
         return sostituzioni[nome] ?? nome
     }
 
-    @ViewChildren('sectionRef', { read: ElementRef }) sectionRef?: QueryList<ElementRef<HTMLElement>>
-    @HostListener('window:scroll', [])
-    onWindowScroll() {
-        this.updateActiveSection(); // Aggiorna la sezione attiva durante lo scroll
-    }
-    ngAfterViewInit(): void {
-        this.updateActiveSection(); // Inizializza la sezione attiva
-    }
     ngOnInit(): void {
 
         // 1. Inizio lo stream partendo dai parametri dell'URL
@@ -64,8 +58,14 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
                 this.metaService.updateTag({ name: 'description', content: `Scopri tutti i dettagli di ${pokemonName}` });
                 if (!pokemonName) return of(null); // Se non c'è il nome, non faccionulla
                 this.CO.vedo(); // Mostro il loader ( pikachu che corre )
-                // 3. Prima chiamata API per i dettagli base del Pokémon
+                // 3. Prima chiamata API per i dettagli base del Pokémon con catch error che rimanda sulla pagina 404
                 return this.api.getPokemonDetails(pokemonName).pipe(
+                    catchError(err => {
+                        this.CO.non_vedo()
+                        console.log('Cazzo ho sbagliato')
+                        this.router.navigateByUrl('**')
+                        return EMPTY
+                    }),
                     // 4. Un altro switchMap per le chiamate che dipendono dalla prima
                     switchMap((pokemonDetails: any) => {
                         if (!pokemonDetails) {
@@ -135,8 +135,7 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
                                             prev,
                                             next
                                         };
-                                    }),
-                                    tap(x => console.log('ciao', x))
+                                    })
                                 );
                             })
                         );
@@ -146,61 +145,17 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
             shareReplay(1)
         )
     }
+    
+    getPokemonBackground(pokemon: ICard) {
+        const c1 = this.colori[pokemon.tipo1] ?? '#999';
+        const c2 = pokemon.tipo2
+            ? this.colori[pokemon.tipo2] ?? '#777'
+            : c1;
 
-    /**
- * Genera la stringa CSS per la sfumatura di background in base ai tipi.
- * @param type1 Il primo tipo del Pokémon.
- * @param type2 Il secondo tipo del Pokémon (opzionale).
- * @returns Una stringa CSS per la proprietà background-image.
- */
-    getBackgroundGradient(type1: string, type2: string | null | undefined): string {
-        const color1 = this.colori[type1];
-        if (type2) {
-            // Pokémon con DUE tipi
-            const color2 = this.colori[type2];
-            if (color1 && color2) {
-                // Sfumatura lineare a 135 gradi (diagonale) tra i due colori
-                return `linear-gradient(135deg, ${color1} 0%, ${color2} 100%)`;
-            }
-        }
-        // Pokémon con UN solo tipo (o fallback in caso di colore mancante)
-        if (color1) {
-            // Sfumatura da colore1 a una tonalità più chiara di colore1 (o bianco/sfondo)
-            // Per uno sfondo scuro, sfumiamo verso un colore leggermente più chiaro per l'effetto di luce
-            // Ritorna una sfumatura radiale leggera come alternativa
-            // return `radial-gradient(circle at 99% 1%, ${color1} 0%, rgba(255, 255, 255, 0.1) 100%)`;
-            return color1
-        }
-
-        // Fallback: colore di sfondo predefinito
-        return 'var(--bg-default, #6c757d)';
-    }
-    /**
-     * Funzione per assegnare la sezione attiva giusta nel menu in alto
-     * @returns 
-     */
-    updateActiveSection() {
-        if (!this.sectionRef) return
-        const sections = this.sectionRef.toArray()
-        for (let i = 0; i < sections.length; i++) {
-            const el = sections[i].nativeElement
-            const rect = el.getBoundingClientRect()
-            if (rect.top <= 120 && rect.bottom > 120) {
-                this.activeSection = this.voci[i]
-                return
-            }
-        }
-        // se nessuna sezione corrisponde allora seleziono la prima di default
-        this.activeSection = this.voci[0]
-    }
-
-    scrollTo(index: number) {
-        const el = this.sectionRef?.toArray()[index + 1]?.nativeElement;
-        if (el) {
-            setTimeout(() => {
-                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-        }
+        return {
+            'background-image': `linear-gradient(180deg, ${c1}40 0%, ${c2}80 100%)`,
+            'background-blend-mode': 'overlay'
+        };
     }
 
     versoPokemon(src: string) {

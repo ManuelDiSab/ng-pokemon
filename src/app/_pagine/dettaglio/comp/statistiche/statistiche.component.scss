@@ -1,25 +1,11 @@
-@use '../../../../../styles/variables' as var;
+@use '../../../../../styles/variables'as var;
+
 .Statistiche {
     display: flex;
     width: 100%;
     flex-direction: row;
     align-items: stretch;
     gap: 2rem;
-
-    .container_table {
-        border: #737373 1px solid;
-        padding: 1rem;
-        border-radius: 10px;
-        // background-color:var(--secondario);
-        background: lightblue;
-        table{
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        p{
-            color:#333;
-        }
-    }
 
     .container_stats {
         flex: 1 1 0;
@@ -30,42 +16,57 @@
             margin-bottom: 5vh;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            border-radius: 10px;
+        .container_table {
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            background: rgba(255, 255, 255, 0.125);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 1.5rem;
+            border-radius: 15px;
 
-            td,
-            tr,
-            th {
-                border: none
-            }
-            tbody {
-                tr {
-                    font-weight: 600;
-                    th {
-                        text-align: end;
-                    }   
-                    .nome_stat{
-                        color: #5f5f5f;
-                    }
-                    td {
-                        width: 10%;
-                        font-size: .9rem;
-                        .barra {
-                            height: 2vh;
-                            margin: auto 0;
-                            border-radius: 5px;
-                            border: 1px solid #b9b8b8;
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                border-radius: 10px;
+
+                tbody {
+                    tr {
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                        font-weight: 800;
+                        .nome_stat {
+                            color: #5f5f5f;
+                            text-align: start;
+                        }
+
+                        td {
+                            width: 10%;
+                            font-size: .9rem;
+                            // background-color: transparent;
+                            background-color: rgba(255, 255, 255, 0.95);
+
+                            .barra {
+                                height: 2vh;
+                                margin: auto 0;
+                                border-radius: 5px;
+                                border: 1px solid #b9b8b8;
+                            }
+                        }
+
+                        .barra_container {
+                            width: 100%;
+                            vertical-align: middle;
                         }
                     }
+                }
+            }
 
-                    .barra_container {
-                        width: 100%;
-                        vertical-align: middle;
-                    }
+            p {
+                small {
+                    color: rgba(255, 255, 255, 0.6);
+                    /* Legenda grigio chiaro */
                 }
             }
         }
     }
+
 }

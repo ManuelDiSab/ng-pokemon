@@ -1,15 +1,15 @@
-@use '../../../../../styles/variables' as var;
-
 .container_table {
-    border: #737373 1px solid;
-    padding: 1rem;
-    border-radius: 10px;
-    // background-color: var(--red-charizard);
-    background-color: lightblue;
+    background: rgba(255, 255, 255, 0.125);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
 
     table {
         border-radius: 10px;
         overflow: hidden;
+        background-color: transparent;
     }
 }
 
@@ -30,10 +30,9 @@
 
     th {
         white-space: normal;
-        text-align: start;
         color: rgba(0, 0, 0, 0.8);
-        text-align: end;
-
+        text-align: start;
+        font-size: .9rem;
         &:first-child {
             width: 10%;
         }
@@ -44,7 +43,8 @@
         white-space: normal;
         word-wrap: break-word;
         word-break: break-all;
-
+        color: #fff;
+        
         span {
             padding-left: 5px;
         }
