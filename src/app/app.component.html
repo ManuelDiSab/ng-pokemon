@@ -1,21 +1,23 @@
 <header>
-     <app-navbar></app-navbar>
+  <app-navbar></app-navbar>
 </header>
 
 <main>
-    <div class="banner-connessione" *ngIf="!(connesso$ | async)">
-        ⚠️ Connessione internet assente. Alcune funzionalità non sono disponibili.
+  @if (!(connesso$ | async)) {
+    <div class="banner-connessione">
+      ⚠️ Connessione internet assente. Alcune funzionalità non sono disponibili.
     </div>
-    @if (isLoading$ | async) {
+  }
+  @if (isLoading$ | async) {
     <div class="overlay-spinner">
-        <div class="spinner-content">
-            <img src="/pikachu-running.gif" alt="Caricamento..." loading="lazy" />
-        </div>
+      <div class="spinner-content">
+        <img src="/pikachu-running.gif" alt="Caricamento..." loading="lazy" />
+      </div>
     </div>
-    }
-    <router-outlet></router-outlet>
+  }
+  <router-outlet></router-outlet>
 </main>
 
 <footer>
-    <app-footer></app-footer>
+  <app-footer></app-footer>
 </footer>
