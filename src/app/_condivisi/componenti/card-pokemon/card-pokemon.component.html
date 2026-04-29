@@ -1,12 +1,12 @@
 <div class="card" role="listitem" [ngStyle]="getPokemonBackground(pokemon)" [routerLink]="'/pokedex/'+ pokemon.nome">
-  <a [title]="'Scopri di più su '+(pokemon.nome | titlecase)">
+  <div [title]="'Scopri di più su '+(pokemon.nome | titlecase)">
     <img [src]="pokemon.sprite" [alt]="pokemon.nome+', pokemon di tipo: ' + pokemon.tipo1 + ' ' + pokemon.tipo2">
-  </a>
+  </div>
   <p class="id"> N° {{pokemon.id.toString().padStart(4,'0')}}</p>
   <div class="info">
     <h5 class="nome"> {{pokemon.nome | uppercase}}</h5>
     <div class="tipi">
-      <div class="tipo mobile" [style.background-color]="colori[pokemon.tipo1]">
+      <div class="tipo mobile" [style.background-color]="colori[pokemon.tipo1]" >
         <span>{{pokemon.tipo1 | uppercase}}</span>
       </div>
       @if (pokemon.tipo2) {

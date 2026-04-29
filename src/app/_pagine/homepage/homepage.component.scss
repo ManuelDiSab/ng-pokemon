@@ -1,4 +1,4 @@
-@use '../../../styles/variables' as var;
+@use '../../../styles/variables'as var;
 
 :host {
     display: flex;
@@ -24,8 +24,7 @@
             h1 {
                 font-size: 2.2rem;
                 margin-bottom: 4vh;
-                // color: rgba(255, 255, 255, 0.9);  //scuro
-                color:var(--title); //chiaro
+                color: var.$text;
 
                 b {
                     color: var.$charizard-red;
@@ -35,14 +34,16 @@
             .desc {
                 font-size: 1.1rem;
                 line-height: 1.5;
-                color:var(--text); //chiaro
+                color: var.$text; //chiaro
 
                 a {
                     text-decoration: none;
+                    color: var.$charizard-red;
                 }
             }
-            h5{
-                color: var(--title);
+
+            h5 {
+                color: var.$title;
             }
 
             .btn-group {
@@ -50,7 +51,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                flex-direction: column;
+                flex-direction: row;
                 gap: 1rem;
 
                 .btn-home {
@@ -58,7 +59,6 @@
                     border: 0px;
                     font-size: 1.2rem;
                     font-weight: bold;
-                    background-color: var.$charizard-red;
                     color: #fff;
                     width: 50%;
                     padding: 1rem;
@@ -76,6 +76,15 @@
                         transform: scale(0.98);
                     }
 
+                }
+
+                .primary {
+                    background-color: var.$charizard-red;
+
+                }
+
+                .secondary {
+                    background-color: var.$blue-megaball;
                 }
             }
         }

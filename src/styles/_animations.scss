@@ -43,7 +43,6 @@
 
 @keyframes pulse {
     // #### IT: animazionisemplice di una pulsaziane | EN: Simple pulse animation
-
     0%, 100% {
         opacity: 1;
         transform: scale(1);
@@ -52,5 +51,14 @@
     50% {
         opacity: 0.7;
         transform: scale(1.1);
+    }
+}
+ // ### IT: ombra pulsante per i bordi delle card dei pokemon leggendari | EN: pulsating shadow for the borders of legendary pokemon cards
+@keyframes neon-pulse {
+    from {
+        box-shadow: 0 0 5px rgba(0, 200, 255, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+    to {
+        box-shadow: 0 0 20px rgba(0, 200, 255, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.2);
     }
 }

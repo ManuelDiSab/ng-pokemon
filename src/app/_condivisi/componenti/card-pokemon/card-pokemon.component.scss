@@ -1,25 +1,29 @@
+@use '../../../../styles/animations';
 .card {
     position: relative;
     // flex: 400px 1 250px;
     // width: 250px;
     height: 395px;
     width: 300px;
+    // max-width: 300px;
     border-radius: 15px;
     overflow: hidden;
     backdrop-filter: blur(15px);
     transition: transform .25s ease, box-shadow .25s ease;
     cursor: pointer;
     color: white;
-    backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.01);
     // Cyberpunk neon style
-    box-shadow: 0 0 5px rgba(0, 200, 255, 0.18);
+    box-shadow: 0 0 5px rgba(0, 200, 255, 0.30);
     background: rgba(0, 0, 0, 0.1);
     padding: 20px;
-
+    /* EN:t can become heavy with many. With this command the browser optimize the performance 
+    IT: può diventare pesante con tante. Con questo comando il browser ottimizza le prestazioni */
+    will-change: transform, box-shadow; 
     @media (min-width:1024px) {
         &:hover {
-            transform: scale(1.03);
+            // transform: scale(1.03);
+            transform: translateY(-7px);
             box-shadow: 0 0 5px rgba(255, 255, 255, .5);
         }
     }
@@ -34,10 +38,12 @@
     }
 
     img {
-        width: 100%;
+        width: 85%;
         border-radius: 15px;
-        object-fit: cover;
+        object-fit: contain;
+        filter: drop-shadow(8px 8px 10px rgba(0, 0, 0, 0.5));
         display: block;
+        margin: 0 auto;
     }
 
     .id {
@@ -68,11 +74,12 @@
             text-align: center;
             .tipo {
                 padding: 4px 10px;
-                border-radius: 8px;
+                border-radius: 20px;
                 font-weight: 700;
                 font-size: .8rem;
                 background: rgba(0, 0, 0, 0.5);
-                width: 50%;
+                border: rgba(255,255,255,0.55) 1px solid;
+                width: auto;
                 color: #fff;
                 // border: 2px solid currentColor;
                 text-transform: uppercase;

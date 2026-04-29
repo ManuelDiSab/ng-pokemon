@@ -10,7 +10,7 @@
           @if (ulOpen) {
             <ul class="result-list" #resultList>
               @for (item of suggestioni; track $index) {
-                <li class="rsult">
+                <li class="result">
                   <a href="#" [routerLink]="'/pokedex/'+ item" (click)="ulOpen =false">{{item | titlecase}}</a>
                 </li>
               }
@@ -41,7 +41,7 @@
                   @if (ulOpen) {
                     <ul class="result-list" #resultList>
                       @for (item of suggestioni; track $index) {
-                        <li class="rsult" (click)="modal.dismiss('click')">
+                        <li class="result" (click)="modal.dismiss('click')">
                           <a href="#" [routerLink]="'/pokedex/'+ item">{{item | titlecase}}</a>
                         </li>
                       }
