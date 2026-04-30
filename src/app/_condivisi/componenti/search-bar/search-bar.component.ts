@@ -1,9 +1,10 @@
-import { Component, ElementRef, EventEmitter, HostListener, inject, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DestroyRef, ElementRef, EventEmitter, HostListener, inject, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { PokemonService } from '../../../_servizi/pokemon.service';
 import { UtilityService } from '../../../_servizi/utility.service';
 import { HttpParams } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 type version_type = 'normal' | 'compact' | 'modal'
 
@@ -22,14 +23,15 @@ export class SearchBarComponent implements OnInit {
     @ViewChild('result-list') resultList!: ElementRef
     @ViewChild('input') input!: ElementRef
     InputRicerca$ = new Subject<string>()
-    constructor(private PS: PokemonService, private UT: UtilityService, private router: Router) {
+    constructor(private PS: PokemonService, private UT: UtilityService, private router: Router, private destroyRef: DestroyRef) {
 
     }
     ngOnInit(): void {
         this.PS.caricaNomiPokemon()
         this.InputRicerca$.pipe(
             debounceTime(200),
-            distinctUntilChanged()
+            distinctUntilChanged(),
+            takeUntilDestroyed(this.destroyRef)
         ).subscribe(term => {
             this.suggestioni = this.PS.ricercaPokemon(term)
         })
@@ -52,37 +54,42 @@ export class SearchBarComponent implements OnInit {
     onSubmit(ricerca: string): void {
         this.query = this.UT.aggiungiQuery('nome', ricerca);
 
-        // converto HttpParams in oggetto semplice
+        //EN: convert query params in a simple object | IT: converto HttpParams in oggetto semplice
         const queryObj: { [key: string]: string } = {};
         this.query.keys().forEach(key => {
             queryObj[key] = this.query.get(key)!;
         });
 
-        // navigo verso Pokedex con queryParams
+        //EN:navigate towards Pokedex with queryParams | IT: navigo verso Pokedex con queryParams
         this.router.navigate(['/pokedex'], { queryParams: queryObj });
-        
         this.ulOpen = false;
+        this.input.nativeElement.value = ''
+        this.InputRicerca$.next('')
     }
     onSearch(input: string) {
         this.InputRicerca$.next(input)
     }
 
     /**
-     * Funzione per apire la modal
-     * @param content 
+     * EN: Function to open the modal | IT: Funzione per apire la modal
+     * @param content EN: Parameter to pass the modal template | IT: Parametro per passare il template della modal
      */
     open(content: TemplateRef<any>) {
         this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
             (result) => {
-                // Caso in cui la modal viene CHIUSA normalmente con modal.close('qualcosa')
+                //EN: Case in which the modal is CLOSED normally with modal.close('qualcosa') | IT: Caso in cui la modal viene CHIUSA normalmente con modal.close('qualcosa')
             },
             (reason) => {
-                // Caso in cui la modal viene DISMISSATA (ESC, click fuori, modal.dismiss('qualcosa'))
+                //EN: Case in which the modal is DISMISSATA (ESC, click outside, modal.dismiss('qualcosa')) | IT: Caso in cui la modal viene DISMISSATA (ESC, click fuori, modal.dismiss('qualcosa'))
                 this.suggestioni = [];
             }
         )
     }
 
+    clearInput() {
+        this.input.nativeElement.value = ''
+        this.InputRicerca$.next('')
+    }
 
 
 }
