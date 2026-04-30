@@ -98,8 +98,8 @@ export class UtilityService {
     }
 
     public colori: { [key: string]: string } = {
-        Normale: 'rgba(168, 167, 122, 1)', Fuoco: '#EE8130', Acqua: '#6390F0', Elettrico: '#F7D02C',
-        Erba: '#7AC74C', Ghiaccio: '#96D9D6', Lotta: '#C22E28', Veleno: '#A33EA1',
+        Normale: '#A8A77A', Fuoco: '#EE8130', Acqua: '#6390F0', Elettrico: '#F7D02C',
+        Erba: '#7AC74C', Ghiaccio: '#084b47ff', Lotta: '#C22E28', Veleno: '#A33EA1',
         Terra: '#E2BF65', Volante: '#A98FF3', Psico: '#F95587', Coleottero: '#A6B91A',
         Roccia: '#B6A136', Spettro: '#735797', Drago: '#6F35FC', Buio: '#705746',
         Acciaio: '#B7B7CE', Folletto: '#D685AD',

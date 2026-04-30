@@ -145,7 +145,8 @@ export class DettaglioComponent implements OnInit {
             shareReplay(1)
         )
     }
-    
+
+
     getPokemonBackground(pokemon: ICard) {
         const c1 = this.colori[pokemon.tipo1] ?? '#999';
         const c2 = pokemon.tipo2
