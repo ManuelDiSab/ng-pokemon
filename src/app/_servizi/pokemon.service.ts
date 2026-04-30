@@ -11,28 +11,26 @@ export class PokemonService {
     public nomiPokemon$ = this.nomiPokemonSubject.asObservable()
 
     private caricato: boolean = false
-    
+
     constructor(private api: ApiService) { }
 
     caricaNomiPokemon(): void {
         if (this.caricato) return
         this.api.getListaPokemonCompleta().pipe(
             tap((x: any) => {
-                const nomi = x.results.map( (a:{name:string, url:string}) => a.name.toLowerCase())
-                this.nomiPokemonSubject.next(nomi),
-                this.caricato = true,
-                console.log('Dati presi')
+                const nomi = x.results.map((a: { name: string, url: string }) => a.name.toLowerCase());
+                this.nomiPokemonSubject.next(nomi);
+                this.caricato = true;
             }),
-            finalize(() => console.log('Finalize')),
             catchError(err => {
                 console.error(err)
                 return of([])
             })
         ).subscribe()
     }
-    
-    
-    ricercaPokemon(input: string, limit:number = 5) {
+
+
+    ricercaPokemon(input: string, limit: number = 5) {
         const list = this.nomiPokemonSubject.getValue()
         if (!input) return []
         const term = input.toLowerCase()

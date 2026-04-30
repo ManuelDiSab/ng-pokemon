@@ -1,12 +1,10 @@
-import { AfterViewInit, Component, ElementRef, HostListener, NgZone, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../../_servizi/api.service';
 import { UtilityService } from '../../_servizi/utility.service';
-import { map, Observable, Subscription, switchMap, tap } from 'rxjs';
+import { map, Observable, Subscription, switchMap, take, tap } from 'rxjs';
 import { IGen } from '../../interface/IGen.interface';
 import { difficultyPresets } from '../../interface/IDifficolta.interface';
 import { difficolta } from '../../_tipi/Difficolta.type';
-import { ConnectionService } from '../../_servizi/connection.service';
-import { KeyboardService } from '../../_servizi/keyboard.service';
 
 interface pokemon {
     nome: string
@@ -21,7 +19,7 @@ interface pokemon {
     templateUrl: './quiz.component.html',
     styleUrl: './quiz.component.scss'
 })
-export class QuizComponent implements OnDestroy, OnInit, AfterViewInit {
+export class QuizComponent implements OnDestroy, OnInit {
     counter: number = 0
     serie: number = 0
     miglior_serie: number = 0
@@ -56,6 +54,7 @@ export class QuizComponent implements OnDestroy, OnInit, AfterViewInit {
         idPokemon: 0
     }
     interval: any
+    private caricaSub?: Subscription;
     url_sprite: string = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork'
     constructor(private api: ApiService, private UT: UtilityService, private el: ElementRef) {
         this.pokemon$ = this.api.getDettaglioPokemon(this.NumeroCasuale())
@@ -67,12 +66,9 @@ export class QuizComponent implements OnDestroy, OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
-        this.generazioni$.subscribe(rit => {
+        this.generazioni$.pipe(take(1)).subscribe(rit => {
             this.generazioni = rit
         })
-    }
-    ngAfterViewInit(): void {
-
     }
     ngOnDestroy(): void {
         clearInterval(this.interval)
@@ -86,12 +82,6 @@ export class QuizComponent implements OnDestroy, OnInit, AfterViewInit {
         return window.innerWidth <= 768;
     }
 
-    calcolaAltezza(): string {
-        if (this.isMobile()) {
-
-        }
-        return ''
-    }
 
     onInputFocus() {
         if (!this.isMobile()) return; // SOLO mobile
@@ -134,6 +124,11 @@ export class QuizComponent implements OnDestroy, OnInit, AfterViewInit {
         this.resetTimer();
         this.is_loading = true
         const idPokemon = this.NumeroCasuale();
+        if (idPokemon === 0) {
+            this.is_loading = false;
+            clearInterval(this.interval);
+            return;// EN: interrupt the loading because the user has won | IT: interrompe il caricamento perché l'utente ha vinto
+        }
         this.pokemon$ = this.api.getDettaglioPokemon(idPokemon).pipe(
             switchMap((rit: any) => {
                 const spriteUrl = `${this.url_sprite}/${rit.data.idPokemon}.png`;
@@ -165,7 +160,10 @@ export class QuizComponent implements OnDestroy, OnInit, AfterViewInit {
             })
         );
 
-        this.pokemon$.subscribe();
+        if (this.caricaSub) {
+            this.caricaSub.unsubscribe();
+        }
+        this.caricaSub = this.pokemon$.pipe(take(1)).subscribe();
     }
 
 
@@ -269,7 +267,7 @@ export class QuizComponent implements OnDestroy, OnInit, AfterViewInit {
             this.indovinato = true
             this.counter++
             this.serie++
-            // this.risposta.nativeElement.disabled = true
+            this.risposta.nativeElement.disabled = true
             clearInterval(this.interval)
             const tempoRisposta = (performance.now() - this.startTempo) / 1000;
             this.aggiornaPunteggio(tempoRisposta)
@@ -335,7 +333,7 @@ export class QuizComponent implements OnDestroy, OnInit, AfterViewInit {
     startTimer(): void {
         this.interval = setInterval(() => {
             if (this.secondi > 0) {
-                this.secondi -= 0.1; // riduci di 0.1 secondi
+                this.secondi = +(this.secondi - 0.1).toFixed(1); // riduci di 0.1 secondi
                 this.secondi = Math.max(this.secondi, 0); // evita valori negativi
                 this.percentualeTimer = (this.secondi / this.preset.secondiIniziali) * 100;
             } else {
